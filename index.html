@@ -8,8 +8,6 @@
 body{font-family:system-ui,sans-serif;margin:0;background:#0b1220;color:white}
 body.terang{background:#f2f2f2;color:#111}
 body.terang .card{background:white;color:#111}
-body.terang nav{background:#ddd}
-body.terang nav button{background:white;color:black}
 body.terang .box{background:#eee;color:#111;border-color:#ccc}
 header{background:linear-gradient(135deg,#0077ff,#00c6ff);padding:25px 20px 10px;text-align:center}
 .demo-badge{background:#ffcc00;color:black;font-size:11px;font-weight:bold;padding:4px 10px;border-radius:20px;letter-spacing:1px}
@@ -18,17 +16,18 @@ header{background:linear-gradient(135deg,#0077ff,#00c6ff);padding:25px 20px 10px
 .cloud{position:absolute;font-size:25px;animation:awan 12s linear infinite}
 @keyframes terbang{from{left:-80px}to{left:110%}}
 @keyframes awan{from{left:110%}to{left:-60px}}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#0a0f1e;position:sticky;top:0;z-index:20}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#0a0f1e;position:sticky;top:0;z-index:20}
 .topbar-left{display:flex;align-items:center;gap:10px}
 .hamburger{background:none;border:none;color:white;font-size:24px;cursor:pointer;padding:4px 8px}
 body.terang .hamburger{color:#111}
 body.terang .topbar{background:#fff}
-.jam-live{background:#1e2f55;color:#00ff88;padding:6px 10px;border-radius:20px;font-weight:bold;font-size:13px;font-family:monospace;white-space:nowrap}
-body.terang .jam-live{background:#e6ffee;color:#008800}
+.jam-box{text-align:right;background:#1e2f55;padding:5px 10px;border-radius:12px;line-height:1.2}
+body.terang .jam-box{background:#e6ffee}
+.jam-live{color:#00ff88;font-weight:bold;font-size:13px;font-family:monospace;white-space:nowrap}
+body.terang .jam-live{color:#008800}
+.tanggal-live{color:#ccc;font-size:10px;white-space:nowrap}
+body.terang .tanggal-live{color:#555}
 .btn-mode{background:#ffcc00;border:none;padding:8px 10px;border-radius:20px;font-weight:bold;font-size:12px}
-nav{display:flex;gap:8px;overflow-x:auto;padding:12px;background:#111c33;position:sticky;top:48px;z-index:10}
-nav button{color:white;background:#1e2f55;padding:10px 16px;border:none;border-radius:20px;white-space:nowrap;font-size:14px;cursor:pointer}
-nav button.aktif{background:#00c6ff;color:black;font-weight:bold}
 .sidebar{position:fixed;top:0;left:-300px;width:280px;height:100%;background:#111c33;color:white;z-index:100;transition:.3s;padding:20px;overflow-y:auto;box-shadow:5px 0 20px rgba(0,0,0,.5)}
 .sidebar.buka{left:0}
 .sidebar .close{float:right;background:none;border:none;color:white;font-size:22px;cursor:pointer}
@@ -59,6 +58,7 @@ body.terang .controller{background:#eef7ff;color:#111}
 .video{position:relative;width:100%;height:0;padding-bottom:56.25%;margin:12px 0;border-radius:12px;overflow:hidden}
 .video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
 footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
+.hint{text-align:center;font-size:13px;opacity:.7;margin:10px 0 0}
 </style>
 </head>
 <body>
@@ -70,7 +70,7 @@ footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 <h2>✈️ Aviation 101</h2>
 <span class="demo-badge">DEMO VERSION</span>
 <p><b>Belajar dasar aviasi dari nol.</b><br>Dari 4 gaya terbang, bedanya Boeing vs Airbus, maskapai Indonesia, sampai pesawat-pesawat legendaris seperti 747, A380, MD-11F & Concorde.</p>
-<p style="background:#0b1220;padding:10px;border-radius:10px">🕐 <b>Waktu sekarang:</b><br><span id="jamSidebar" style="color:#00ff88;font-family:monospace;font-weight:bold">--:--:--</span><br><span style="font-size:11px">WIB - Indonesia</span></p>
+<p style="background:#0b1220;padding:10px;border-radius:10px">🗓️ <b>Hari ini:</b><br><span id="tanggalSidebar" style="color:#ffcc00;font-weight:bold">-</span><br><span id="jamSidebar" style="color:#00ff88;font-family:monospace;font-weight:bold">--:--:--</span><br><span style="font-size:11px">WIB - Indonesia</span></p>
 <h3 style="margin-top:20px">📚 MENU</h3>
 <div class="sidebar-menu">
 <button onclick="bukaDariMenu('gaya',this)" class="aktif">✈️ 4 Gaya Terbang</button>
@@ -89,20 +89,13 @@ footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 <b>✈️ Aviation 101</b>
 </div>
 <div style="display:flex;gap:8px;align-items:center">
-<span class="jam-live" id="jamAtas">--:--:--</span>
+<div class="jam-box"><div class="jam-live" id="jamAtas">--:--:--</div><div class="tanggal-live" id="tanggalAtas">-</div></div>
 <button class="btn-mode" onclick="gantiMode()">🌙 / ☀️</button>
 </div>
 </div>
 
 <header><h1>Aviation 101</h1><p>Belajar dasar aviasi dari nol.</p><span class="demo-badge">✦ DEMO VERSION ✦</span><div class="sky"><div class="cloud">☁️</div><div class="plane">✈️</div></div></header>
-<nav>
-<button onclick="buka('gaya',this)" class="aktif">4 Gaya</button>
-<button onclick="buka('jenis',this)">Jenis</button>
-<button onclick="buka('indo',this)">🇮🇩 Indonesia</button>
-<button onclick="buka('legenda',this)">👑 Legenda</button>
-<button onclick="buka('kamus',this)">Kamus</button>
-<button onclick="buka('kecelakaan',this)">Kecelakaan</button>
-</nav>
+<p class="hint">👆 Pencet ☰ di pojok kiri atas untuk pindah menu</p>
 
 <div class="card aktif" id="gaya">
 <h2>1. 4 Gaya Yang Bekerja</h2>
@@ -200,11 +193,9 @@ footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 <footer>Aviation 101 (Demo version) • Belajar Dasar Penerbangan</footer>
 <script>
 function gantiMode(){document.body.classList.toggle('terang')}
-function buka(id,btn){
+function buka(id){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('aktif'));
   document.getElementById(id).classList.add('aktif');
-  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('aktif'));
-  if(btn) btn.classList.add('aktif');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function bukaMenu(){
@@ -216,16 +207,19 @@ function tutupMenu(){
   document.getElementById('overlay').classList.remove('tampil');
 }
 function bukaDariMenu(id,btn){
-  buka(id,null);
+  buka(id);
   document.querySelectorAll('.sidebar-menu button').forEach(b=>b.classList.remove('aktif'));
   btn.classList.add('aktif');
   tutupMenu();
 }
 function updateJam(){
   var now=new Date();
-  var jam=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
-  document.getElementById('jamAtas').textContent=jam+' WIB';
-  document.getElementById('jamSidebar').textContent=jam+' WIB';
+  var jam=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0')+' WIB';
+  var tanggal=now.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('jamAtas').textContent=jam;
+  document.getElementById('tanggalAtas').textContent=tanggal;
+  document.getElementById('jamSidebar').textContent=jam;
+  document.getElementById('tanggalSidebar').textContent=tanggal;
 }
 setInterval(updateJam,1000);
 updateJam();
