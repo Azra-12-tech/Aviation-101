@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVIASI 101 - V3</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,sans-serif;margin:0;background:#0b1220;color:white;transition:0.3s}
+body.terang{background:#f2f2f2;color:#111}
+body.terang .card{background:white;color:#111}
+body.terang nav{background:#ddd}
+body.terang nav a{background:white;color:black}
+body.terang .box{background:#eee;color:#111;border-color:#ccc}
+header{background:linear-gradient(135deg,#0077ff,#00c6ff);padding:30px 20px 10px;text-align:center;overflow:hidden}
+.sky{height:80px;position:relative;overflow:hidden}
+.plane{font-size:45px;position:absolute;top:10px;left:-80px;animation:terbang 7s linear infinite}
+.cloud{position:absolute;font-size:25px;animation:awan 12s linear infinite}
+@keyframes terbang{from{left:-80px}to{left:110%}}
+@keyframes awan{from{left:110%}to{left:-60px}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 16px}
+.btn-mode{background:#ffcc00;border:none;padding:8px 14px;border-radius:20px;font-weight:bold}
+nav{display:flex;gap:8px;overflow-x:auto;padding:12px;background:#111c33;position:sticky;top:0;z-index:10}
+nav a{color:white;text-decoration:none;background:#1e2f55;padding:8px 14px;border-radius:20px;white-space:nowrap;font-size:14px}
+.card{background:#16223f;margin:16px;border-radius:16px;padding:20px}
+.card h2{color:#00c6ff;margin-top:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{background:#0b1220;padding:14px;border-radius:12px;border:1px solid #2a3a65}
+button.quiz{width:100%;padding:14px;border:none;border-radius:12px;background:#ffcc00;font-weight:bold;font-size:16px;margin-top:10px}
+.kecelakaan{border-left:5px solid #ff4444;background:#1a0f0f;padding:14px;border-radius:10px;margin-top:14px}
+body.terang .kecelakaan{background:#ffecec;color:#111}
+.pelajaran{background:#0f2a1a;padding:12px;border-radius:10px;margin-top:8px;border:1px solid #00ff88}
+body.terang .pelajaran{background:#e6ffee;color:#111}
+</style>
+</head>
+<body>
+<div class="topbar">
+<b>✈️ AVIASI 101 - V3</b>
+<button class="btn-mode" onclick="gantiMode()">🌙 / ☀️ Ganti Mode</button>
+</div>
+<header>
+<h1>Kenapa Pesawat Bisa Terbang?</h1>
+<p>Aviasi dari nol, pake bahasa gaul.</p>
+<div class="sky"><div class="cloud">☁️</div><div class="plane">✈️</div></div>
+</header>
+<nav>
+<a href="#gaya">4 Gaya</a>
+<a href="#jenis">Jenis</a>
+<a href="#kamus">Kamus</a>
+<a href="#kecelakaan">Kecelakaan</a>
+<a href="#quiz">Quiz</a>
+</nav>
+<div class="card" id="gaya">
+<h2>1. 4 Gaya</h2>
+<div class="grid">
+<div class="box"><b>⬆️ LIFT</b><br>Angkat dari sayap.</div>
+<div class="box"><b>⬇️ WEIGHT</b><br>Berat pesawat.</div>
+<div class="box"><b>➡️ THRUST</b><br>Dorongan mesin.</div>
+<div class="box"><b>⬅️ DRAG</b><br>Hambatan udara.</div>
+</div>
+</div>
+<div class="card" id="jenis">
+<h2>2. Jenis Pesawat</h2>
+<p><b>Boeing 🇺🇸:</b> 737, 777, 787. Pake Yoke kayak setir.</p>
+<p><b>Airbus 🇪🇺:</b> A320, A350, A380. Pake Side-Stick kayak joystick.</p>
+<p><b>Jet:</b> Jarak jauh, kenceng. <b>Turboprop:</b> Jarak deket, ATR 72. <b>Propeller:</b> Pesawat latih, Cessna 172.</p>
+</div>
+<div class="card" id="kamus">
+<h2>3. Kamus Pilot</h2>
+<p><b>Takeoff:</b> Lepas landas. <b>Landing:</b> Mendarat. <b>Turbulence:</b> Guncangan, normal. <b>Stall:</b> Kehilangan Lift. <b>Mayday:</b> Kode darurat serius. <b>Black Box:</b> Warna oranye, isinya rekaman kokpit.</p>
+</div>
+<div class="card" id="kecelakaan">
+<h2>4. Kecelakaan Pesawat & Pelajarannya</h2>
+<p>Aviasi maju karena belajar dari kesalahan. Bukan buat nakut-nakutin, tapi biar sekarang terbang jauh lebih aman.</p>
+<div class="kecelakaan">
+<b>✈️ Tenerife 1977 - Tabrakan di Landasan</b><br>
+Dua Boeing 747 tabrakan di landasan berkabut.<br>
+<div class="pelajaran"><b>✅ PELAJARANNYA:</b> Pilot & ATC WAJIB pake bahasa standar yang jelas. Gak boleh ngomong ambigu. Komunikasi jadi nomor 1.</div>
+</div>
+<div class="kecelakaan">
+<b>✈️ Air France 447 (2009) - Hilang di Atlantik</b><br>
+Sensor kecepatan beku karena es, autopilot mati, pilot bingung, pesawat stall dan jatuh.<br>
+<div class="pelajaran"><b>✅ PELAJARANNYA:</b> Pilot sekarang dilatih khusus buat hadapin sensor mati. Jangan panik, jangan tarik hidung ke atas terus pas stall. Sensor pitot diganti lebih tahan es.</div>
+</div>
+<div class="kecelakaan">
+<b>✈️ Lion Air JT610 & Ethiopian 302 (2018-2019) - Boeing 737 MAX</b><br>
+Sistem MCAS salah baca sensor, maksa hidung pesawat nunduk terus.<br>
+<div class="pelajaran"><b>✅ PELAJARANNYA:</b> 737 MAX dilarang terbang 2 tahun di seluruh dunia. Sekarang pilot WAJIB dilatih soal MCAS, sistemnya diperbaiki, perusahaan gak boleh nyembunyiin sistem baru.</div>
+</div>
+<div class="kecelakaan">
+<b>✈️ US Airways 1549 (2009) - Miracle on the Hudson</b><br>
+Kena kawanan burung, 2 mesin mati total. Pilot Sully mendarat di Sungai Hudson, SEMUA SELAMAT.<br>
+<div class="pelajaran"><b>✅ PELAJARANNYA:</b> Pengalaman + keputusan cepet bisa nyelametin 155 nyawa. Pesawat dirancang bisa mengapung sementara.</div>
+</div>
+<p><b>Kesimpulan:</b> Setiap kecelakaan bikin aturan baru. Makanya pesawat sekarang jadi transportasi paling aman.</p>
+</div>
+<div class="card" id="quiz">
+<h2>5. Quiz</h2>
+<p id="soal">Apa yang bikin pesawat naik?</p>
+<button class="quiz" onclick="jawab('salah')">A. Thrust</button>
+<button class="quiz" onclick="jawab('benar')">B. Lift</button>
+<p id="hasil"></p>
+</div>
+<footer>Dibuat oleh lo • V3 • Mode Gelap/Terang + Sejarah</footer>
+<script>
+function gantiMode(){
+  document.body.classList.toggle('terang');
+}
+function jawab(j){
+  let h=document.getElementById('hasil');
+  if(j=='benar'){h.innerText='✅ BENER!'; h.style.color='#00ff88'}
+  else{h.innerText='❌ Salah, jawabannya Lift'; h.style.color='red'}
+}
+</script>
+</body>
+  </html>
