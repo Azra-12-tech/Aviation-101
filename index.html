@@ -18,11 +18,29 @@ header{background:linear-gradient(135deg,#0077ff,#00c6ff);padding:25px 20px 10px
 .cloud{position:absolute;font-size:25px;animation:awan 12s linear infinite}
 @keyframes terbang{from{left:-80px}to{left:110%}}
 @keyframes awan{from{left:110%}to{left:-60px}}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 16px}
-.btn-mode{background:#ffcc00;border:none;padding:8px 14px;border-radius:20px;font-weight:bold}
-nav{display:flex;gap:8px;overflow-x:auto;padding:12px;background:#111c33;position:sticky;top:0;z-index:10}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#0a0f1e;position:sticky;top:0;z-index:20}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.hamburger{background:none;border:none;color:white;font-size:24px;cursor:pointer;padding:4px 8px}
+body.terang .hamburger{color:#111}
+body.terang .topbar{background:#fff}
+.jam-live{background:#1e2f55;color:#00ff88;padding:6px 10px;border-radius:20px;font-weight:bold;font-size:13px;font-family:monospace;white-space:nowrap}
+body.terang .jam-live{background:#e6ffee;color:#008800}
+.btn-mode{background:#ffcc00;border:none;padding:8px 10px;border-radius:20px;font-weight:bold;font-size:12px}
+nav{display:flex;gap:8px;overflow-x:auto;padding:12px;background:#111c33;position:sticky;top:48px;z-index:10}
 nav button{color:white;background:#1e2f55;padding:10px 16px;border:none;border-radius:20px;white-space:nowrap;font-size:14px;cursor:pointer}
 nav button.aktif{background:#00c6ff;color:black;font-weight:bold}
+.sidebar{position:fixed;top:0;left:-300px;width:280px;height:100%;background:#111c33;color:white;z-index:100;transition:.3s;padding:20px;overflow-y:auto;box-shadow:5px 0 20px rgba(0,0,0,.5)}
+.sidebar.buka{left:0}
+.sidebar .close{float:right;background:none;border:none;color:white;font-size:22px;cursor:pointer}
+.sidebar h2{color:#00c6ff;margin:10px 0 5px}
+.sidebar p{font-size:13px;opacity:.85;line-height:1.5}
+.sidebar-menu button{display:block;width:100%;text-align:left;background:#1e2f55;color:white;border:none;padding:12px;border-radius:12px;margin:8px 0;font-size:15px;cursor:pointer}
+.sidebar-menu button.aktif{background:#00c6ff;color:black;font-weight:bold}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);display:none;z-index:90}
+.overlay.tampil{display:block}
+body.terang .sidebar{background:#fff;color:#111}
+body.terang .sidebar .close{color:#111}
+body.terang .sidebar-menu button{background:#eee;color:#111}
 .card{background:#16223f;margin:16px;border-radius:16px;padding:20px;display:none}
 .card.aktif{display:block;animation:muncul .3s}
 @keyframes muncul{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -36,13 +54,46 @@ body.terang .kecelakaan{background:#ffecec;color:#111}
 body.terang .pelajaran{background:#e6ffee;color:#111}
 .legenda{border:1px solid #00c6ff;border-radius:14px;padding:14px;margin-top:16px;background:#0b1220}
 body.terang .legenda{background:#eef7ff;color:#111}
+.controller{border:2px solid #00c6ff;border-radius:14px;padding:14px;margin-top:14px;background:#0b1220}
+body.terang .controller{background:#eef7ff;color:#111}
 .video{position:relative;width:100%;height:0;padding-bottom:56.25%;margin:12px 0;border-radius:12px;overflow:hidden}
 .video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
 footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 </style>
 </head>
 <body>
-<div class="topbar"><b>✈️ Aviation 101</b><span class="demo-badge">DEMO VERSION</span><button class="btn-mode" onclick="gantiMode()">🌙 / ☀️ Mode</button></div>
+
+<div class="overlay" id="overlay" onclick="tutupMenu()"></div>
+
+<div class="sidebar" id="sidebar">
+<button class="close" onclick="tutupMenu()">✕</button>
+<h2>✈️ Aviation 101</h2>
+<span class="demo-badge">DEMO VERSION</span>
+<p><b>Belajar dasar aviasi dari nol.</b><br>Dari 4 gaya terbang, bedanya Boeing vs Airbus, maskapai Indonesia, sampai pesawat-pesawat legendaris seperti 747, A380, MD-11F & Concorde.</p>
+<p style="background:#0b1220;padding:10px;border-radius:10px">🕐 <b>Waktu sekarang:</b><br><span id="jamSidebar" style="color:#00ff88;font-family:monospace;font-weight:bold">--:--:--</span><br><span style="font-size:11px">WIB - Indonesia</span></p>
+<h3 style="margin-top:20px">📚 MENU</h3>
+<div class="sidebar-menu">
+<button onclick="bukaDariMenu('gaya',this)" class="aktif">✈️ 4 Gaya Terbang</button>
+<button onclick="bukaDariMenu('jenis',this)">🎮 Jenis & Controller</button>
+<button onclick="bukaDariMenu('indo',this)">🇮🇩 Maskapai Indonesia</button>
+<button onclick="bukaDariMenu('legenda',this)">👑 Pesawat Legenda</button>
+<button onclick="bukaDariMenu('kamus',this)">📖 Kamus Pilot</button>
+<button onclick="bukaDariMenu('kecelakaan',this)">⚠️ Kecelakaan & Pelajaran</button>
+</div>
+<p style="margin-top:20px;font-size:12px">Dibuat untuk pecinta aviasi Indonesia.<br>Versi Demo - 2026</p>
+</div>
+
+<div class="topbar">
+<div class="topbar-left">
+<button class="hamburger" onclick="bukaMenu()">☰</button>
+<b>✈️ Aviation 101</b>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<span class="jam-live" id="jamAtas">--:--:--</span>
+<button class="btn-mode" onclick="gantiMode()">🌙 / ☀️</button>
+</div>
+</div>
+
 <header><h1>Aviation 101</h1><p>Belajar dasar aviasi dari nol.</p><span class="demo-badge">✦ DEMO VERSION ✦</span><div class="sky"><div class="cloud">☁️</div><div class="plane">✈️</div></div></header>
 <nav>
 <button onclick="buka('gaya',this)" class="aktif">4 Gaya</button>
@@ -65,10 +116,26 @@ footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 </div>
 
 <div class="card" id="jenis">
-<h2>2. Jenis Pesawat</h2>
-<p><b>Boeing 🇺🇸:</b> 737, 777, 787. Menggunakan Yoke seperti setir.</p>
-<p><b>Airbus 🇪🇺:</b> A320, A350, A380. Menggunakan Side-Stick seperti joystick.</p>
-<p><b>Jet:</b> Jarak jauh. <b>Turboprop:</b> Jarak dekat, ATR 72. <b>Propeller:</b> Pesawat latih, Cessna 172.</p>
+<h2>2. Jenis Pesawat & Controller-nya</h2>
+<p>Ini yang paling seru! Boeing dan Airbus cara nyetirnya BEDA TOTAL!</p>
+<div class="controller">
+<h3>🇺🇸 Boeing - Pakai YOKE</h3>
+<img src="https://theaircurrent.com/wp-content/uploads/2019/12/boeing-737-max-yoke-883x589.jpg" alt="Boeing Yoke">
+<p><b>Contoh:</b> 737, 777, 787</p>
+<p><b>Bentuknya:</b> Kayak setir mobil, ada di depan pilot. Diputar kiri-kanan, ditarik-dorong.</p>
+<p><b>Rasanya:</b> Pilot bisa ngerasain langsung beratnya pesawat. Kalau pilot kiri narik, yoke kanan ikut gerak!</p>
+<p><b>Pilot bilang:</b> "Lebih berasa jadi pilot beneran, lebih manual."</p>
+</div>
+<div class="controller">
+<h3>🇪🇺 Airbus - Pakai SIDE-STICK</h3>
+<img src="https://assets.kmart.com.au/transform/902c1f22-3330-4912-82d8-0b8ecb6e66e9/110063950-1?io=transform:fit,width:1920,height:2400&quality=90" alt="Airbus Side-Stick">
+<p><b>Contoh:</b> A320, A350, A380</p>
+<p><b>Bentuknya:</b> Kayak joystick game / PS! Cuma ada di samping kiri & kanan, bukan di depan.</p>
+<p><b>Rasanya:</b> Enteng banget, cuma digerakin pake 1 tangan. Ada meja di depan pilot, bisa buat naruh kopi & makan! ☕</p>
+<p><b>Pilot bilang:</b> "Lebih santai, lebih canggih, komputer yang bantuin banyak."</p>
+</div>
+<div class="box" style="margin-top:14px"><b>🤔 JADI PILIH MANA?</b><br>Pilot Boeing suka yang manual & berasa. Pilot Airbus suka yang santai & modern. Gak ada yang lebih bagus, cuma selera! Lo tim mana? Tim Setir atau Tim Joystick?</div>
+<p style="margin-top:14px"><b>Jenis Mesin:</b><br><b>Jet:</b> Jarak jauh. <b>Turboprop:</b> Jarak dekat, ATR 72. <b>Propeller:</b> Pesawat latih, Cessna 172.</p>
 </div>
 
 <div class="card" id="indo">
@@ -87,37 +154,31 @@ footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 <div class="card" id="legenda">
 <h2>4. Pesawat Paling Terkenal di Dunia</h2>
 <p>Ini 4 pesawat yang paling melegenda di sejarah aviasi!</p>
-
 <div class="legenda">
 <h3>👑 Boeing 747 - Queen of the Skies</h3>
 <img src="https://cdn.aeroreport.de/media/pages/good-to-know/boeing-747-die-koenigin-der-luefte/kopf/2e9ed6bce3-1760429390/r6dqzp_747_exp_aerial_02b_post_2048px-2000x.webp" alt="Boeing 747">
 <p><b>Julukan:</b> Ratu Langit<br><b>Terbang pertama:</b> 1969<br><b>Ciri khas:</b> Punya punuk / lantai 2 di depan, 4 mesin.</p>
 <p>Pesawat yang bikin orang biasa bisa keliling dunia. Dulu Garuda juga punya 747 untuk haji & umroh. Produksinya berhenti di 2022 setelah 1.574 unit dibuat.</p>
 </div>
-
 <div class="legenda">
 <h3>🏰 Airbus A380 - Raksasa 2 Lantai Penuh</h3>
 <img src="https://resources.globalair.com/images/article/a380.jpg?w=800" alt="Airbus A380">
 <p><b>Julukan:</b> Superjumbo<br><b>Terbang pertama:</b> 2005<br><b>Ciri khas:</b> 2 lantai penuh dari depan sampai belakang, 4 mesin, bisa bawa 850 penumpang!</p>
 <p>Pesawat penumpang TERBESAR di dunia. Punya bar, shower, sampai kamar tidur di kelas First Class-nya Emirates. Produksinya berhenti di 2021.</p>
 </div>
-
 <div class="legenda">
 <h3>📦 McDonnell Douglas MD-11F - Si Kargo 3 Mesin</h3>
 <img src="https://userfiles.planespot.app/0Drt056mx0u_1AEVJeDvy6wOHZiusvw4LIRprwsztSY_1767752295_preview.jpg" alt="MD-11F FedEx">
 <p><b>Julukan:</b> Trijet Terakhir<br><b>Terbang pertama:</b> 1990<br><b>Ciri khas:</b> 3 mesin - 2 di sayap, 1 di ekor. Sekarang cuma dipakai kargo.</p>
-<p>Dulu dipakai Garuda juga versi penumpangnya! Sekarang MD-11F cuma dipakai FedEx, UPS, dan Lufthansa Cargo. FedEx berencana pensiunkan di 2028. Jadi buruan foto kalau liat!</p>
+<p>Dulu dipakai Garuda juga versi penumpangnya! Sekarang MD-11F cuma dipakai FedEx, UPS, dan Lufthansa Cargo. FedEx berencana pensiunkan di 2028.</p>
 </div>
-
 <div class="legenda">
 <h3>🚀 Concorde - Pesawat Supersonik</h3>
 <img src="https://i.pinimg.com/originals/95/85/e5/9585e5cdd0754c3cc1670ce7ce511bd7.jpg" alt="Concorde">
 <p><b>Julukan:</b> Si Burung Putih<br><b>Terbang pertama:</b> 1969<br><b>Ciri khas:</b> Hidung bisa turun naik (droop nose), sayap delta, 4 mesin + afterburner.</p>
-<p>London - New York cuma 3 JAM! Pesawat biasa 7-8 jam. Kecepatannya Mach 2.04 = 2.180 km/jam, 2x kecepatan suara! Terbang setinggi 18.300m, penumpangnya bisa liat lengkungan bumi!</p>
-<p>Harga tiketnya dulu Rp 200 jutaan sekali jalan. Pensiun 2003 setelah kecelakaan Air France 4590 di Paris tahun 2000.</p>
+<p>London - New York cuma 3 JAM! Kecepatannya Mach 2.04 = 2.180 km/jam, 2x kecepatan suara! Terbang setinggi 18.300m, penumpangnya bisa liat lengkungan bumi!</p>
 <p><b>🎥 NONTON NIH, DARI DALEM KOKPIT PAS TAKEOFF:</b></p>
 <div class="video"><iframe src="https://www.youtube.com/embed/xgOo6sqJQmA" allowfullscreen></iframe></div>
-<p>Dengerin suaranya, gila banget kan? Itu afterburner-nya nyala!</p>
 </div>
 </div>
 
@@ -143,9 +204,32 @@ function buka(id,btn){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('aktif'));
   document.getElementById(id).classList.add('aktif');
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('aktif'));
-  btn.classList.add('aktif');
+  if(btn) btn.classList.add('aktif');
   window.scrollTo({top:0,behavior:'smooth'});
 }
+function bukaMenu(){
+  document.getElementById('sidebar').classList.add('buka');
+  document.getElementById('overlay').classList.add('tampil');
+}
+function tutupMenu(){
+  document.getElementById('sidebar').classList.remove('buka');
+  document.getElementById('overlay').classList.remove('tampil');
+}
+function bukaDariMenu(id,btn){
+  buka(id,null);
+  document.querySelectorAll('.sidebar-menu button').forEach(b=>b.classList.remove('aktif'));
+  btn.classList.add('aktif');
+  tutupMenu();
+}
+function updateJam(){
+  var now=new Date();
+  var jam=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('jamAtas').textContent=jam+' WIB';
+  document.getElementById('jamSidebar').textContent=jam+' WIB';
+}
+setInterval(updateJam,1000);
+updateJam();
 </script>
 </body>
-</html>
+  </html>
+  
