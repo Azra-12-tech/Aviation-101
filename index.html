@@ -9,8 +9,8 @@ body{font-family:system-ui,sans-serif;margin:0;background:#0b1220;color:white}
 body.terang{background:#f2f2f2;color:#111}
 body.terang .card{background:white;color:#111}
 body.terang .box{background:#eee;color:#111;border-color:#ccc}
+/* LAYAR AWAL */
 .layar-penuh{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,#0b1220,#16223f);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;overflow-y:auto}
-.layar-penuh.sembunyi{display:none}
 .logo-besar{font-size:60px;margin-bottom:5px}
 .btn-bahasa{width:100%;max-width:320px;background:white;color:#111;border:none;padding:16px;border-radius:16px;margin:8px 0;font-size:17px;font-weight:bold;cursor:pointer}
 .btn-utama{width:100%;max-width:320px;background:#00c6ff;color:black;border:none;padding:15px;border-radius:14px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:12px}
@@ -50,8 +50,7 @@ body.terang .sidebar{background:#fff;color:#111}
 body.terang .sidebar .close{color:#111}
 body.terang .sidebar-menu button{background:#eee;color:#111}
 .card{background:#16223f;margin:16px;border-radius:16px;padding:20px;display:none}
-.card.aktif{display:block;animation:muncul .3s}
-@keyframes muncul{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card.aktif{display:block}
 .card h2{color:#00c6ff;margin-top:0}
 .card img{width:100%;height:200px;object-fit:cover;border-radius:12px;margin:10px 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -83,6 +82,7 @@ body.terang .alpha-item b{color:#0077ff}
 </head>
 <body>
 
+<!-- LAYAR 1: BAHASA -->
 <div class="layar-penuh" id="layarBahasa">
 <div class="logo-besar">✈️</div>
 <h1 style="margin:5px 0">Aviation 101</h1>
@@ -93,7 +93,8 @@ body.terang .alpha-item b{color:#0077ff}
 <p style="font-size:12px;opacity:.6;margin-top:20px">By Azraferoz Sean • 2026</p>
 </div>
 
-<div class="layar-penuh sembunyi" id="layarPeringatan">
+<!-- LAYAR 2: PERINGATAN -->
+<div class="layar-penuh" id="layarPeringatan" style="display:none">
 <div style="font-size:50px">⚠️</div>
 <h2 id="judulWarning" style="margin:8px 0">PERINGATAN</h2>
 <div class="warning-box">
@@ -114,7 +115,7 @@ body.terang .alpha-item b{color:#0077ff}
 <button class="close" onclick="tutupMenu()">✕</button>
 <h2>✈️ Aviation 101</h2>
 <span class="demo-badge">DEMO VERSION</span>
-<p><b>Belajar dasar aviasi dari nol.</b><br>Dari 4 gaya terbang, bedanya Boeing vs Airbus, maskapai Indonesia, sampai pesawat-pesawat legendaris seperti 747, A380, MD-11F & Concorde.</p>
+<p><b>Belajar dasar aviasi dari nol.</b><br>Dari 4 gaya terbang, bedanya Boeing vs Airbus, maskapai Indonesia, sampai pesawat legendaris seperti 747, A380, MD-11F & Concorde.</p>
 <p style="background:#0b1220;padding:10px;border-radius:10px">🗓️ <b>Hari ini:</b><br><span id="tanggalSidebar" style="color:#ffcc00;font-weight:bold">-</span><br><span id="jamSidebar" style="color:#00ff88;font-family:monospace;font-weight:bold">--:--:--</span><br><span style="font-size:11px">WIB - Indonesia</span></p>
 <h3 style="margin-top:20px">📚 MENU</h3>
 <div class="sidebar-menu">
@@ -157,35 +158,32 @@ body.terang .alpha-item b{color:#0077ff}
 
 <div class="card" id="jenis">
 <h2>2. Jenis Pesawat & Controller-nya</h2>
-<p>Ini yang paling seru! Boeing dan Airbus cara nyetirnya BEDA TOTAL!</p>
+<p>Boeing dan Airbus cara nyetirnya BEDA TOTAL!</p>
 <div class="controller">
 <h3>🇺🇸 Boeing - Pakai YOKE</h3>
 <img src="https://theaircurrent.com/wp-content/uploads/2019/12/boeing-737-max-yoke-883x589.jpg" alt="Boeing Yoke">
-<p><b>Contoh:</b> 737, 777, 787</p>
-<p><b>Bentuknya:</b> Kayak setir mobil, ada di depan pilot. Diputar kiri-kanan, ditarik-dorong.</p>
-<p><b>Rasanya:</b> Pilot bisa ngerasain langsung beratnya pesawat.</p>
+<p><b>Contoh:</b> 737, 777, 787<br><b>Bentuknya:</b> Kayak setir mobil, diputar & ditarik-dorong.<br><b>Rasanya:</b> Pilot bisa ngerasain langsung beratnya pesawat.</p>
 </div>
 <div class="controller">
 <h3>🇪🇺 Airbus - Pakai SIDE-STICK</h3>
 <img src="https://assets.kmart.com.au/transform/902c1f22-3330-4912-82d8-0b8ecb6e66e9/110063950-1?io=transform:fit,width:1920,height:2400&quality=90" alt="Airbus Side-Stick">
-<p><b>Contoh:</b> A320, A350, A380</p>
-<p><b>Bentuknya:</b> Kayak joystick game / PS! Cuma ada di samping kiri & kanan.</p>
-<p><b>Rasanya:</b> Enteng banget, cuma digerakin pake 1 tangan. Bisa buat naruh kopi! ☕</p>
+<p><b>Contoh:</b> A320, A350, A380<br><b>Bentuknya:</b> Kayak joystick game / PS! Di samping kiri & kanan.<br><b>Rasanya:</b> Enteng, 1 tangan aja. Bisa naruh kopi! ☕</p>
 </div>
-<div class="box" style="margin-top:14px"><b>🤔 JADI PILIH MANA?</b><br>Pilot Boeing suka yang manual & berasa. Pilot Airbus suka yang santai & modern. Lo tim mana?</div>
+<div class="box" style="margin-top:14px"><b>🤔 LO TIM MANA?</b><br>Tim Setir (Boeing) atau Tim Joystick (Airbus)?</div>
+<p style="margin-top:14px"><b>Jenis Mesin:</b><br><b>Jet:</b> Jarak jauh. <b>Turboprop:</b> Jarak dekat, ATR 72. <b>Propeller:</b> Pesawat latih, Cessna 172.</p>
 </div>
 
 <div class="card" id="indo">
 <h2>3. Maskapai Indonesia</h2>
 <h3>Garuda Indonesia - Boeing 777-300ER</h3>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Boeing_777-300ER_Garuda_Indonesia_PK-GIK.png/1280px-Boeing_777-300ER_Garuda_Indonesia_PK-GIK.png" alt="Garuda Indonesia Boeing 777">
-<p>Maskapai nasional Indonesia. Terkenal dengan pelayanan premium dan armada Boeing 777 untuk rute jarak jauh seperti Jakarta - Amsterdam dan Jakarta - Jeddah.</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Boeing_777-300ER_Garuda_Indonesia_PK-GIK.png/1280px-Boeing_777-300ER_Garuda_Indonesia_PK-GIK.png" alt="Garuda 777">
+<p>Maskapai nasional Indonesia. Rute jarak jauh seperti Jakarta - Amsterdam dan Jakarta - Jeddah.</p>
 <h3>Garuda Indonesia - Airbus A330</h3>
 <img src="https://teropongmedia.id/wp-content/uploads/2023/06/Garuda_Indonesia_Airbus_A330-200_PK-GPH_-_NRT-1024x683.jpg" alt="Garuda A330">
-<p>Airbus A330 dipakai Garuda untuk rute Asia seperti Jakarta - Tokyo (Narita) dan Jakarta - Singapura.</p>
+<p>Airbus A330 dipakai Garuda untuk rute Asia seperti Jakarta - Tokyo dan Jakarta - Singapura.</p>
 <h3>Lion Air - Boeing 737 MAX 8</h3>
-<img src="https://photos.flightaware.com/photos/retriever/8a1db3e3a2a104da3d13a9913ced0b0196a9722c" alt="Lion Air Boeing 737">
-<p>Lion Air adalah maskapai dengan armada terbesar di Indonesia. Boeing 737 menjadi tulang punggung untuk penerbangan domestik.</p>
+<img src="https://photos.flightaware.com/photos/retriever/8a1db3e3a2a104da3d13a9913ced0b0196a9722c" alt="Lion Air 737">
+<p>Lion Air adalah maskapai dengan armada terbesar di Indonesia. Boeing 737 jadi tulang punggung penerbangan domestik.</p>
 </div>
 
 <div class="card" id="legenda">
@@ -203,7 +201,7 @@ body.terang .alpha-item b{color:#0077ff}
 <div class="legenda">
 <h3>📦 MD-11F - Si Kargo 3 Mesin</h3>
 <img src="https://userfiles.planespot.app/0Drt056mx0u_1AEVJeDvy6wOHZiusvw4LIRprwsztSY_1767752295_preview.jpg" alt="MD-11F FedEx">
-<p><b>Julukan:</b> Trijet Terakhir<br><b>Terbang pertama:</b> 1990<br><b>Ciri khas:</b> 3 mesin - 2 di sayap, 1 di ekor.</p>
+<p><b>Julukan:</b> Trijet Terakhir<br><b>Terbang pertama:</b> 1990<br><b>Ciri khas:</b> 3 mesin - 2 di sayap, 1 di ekor. Sekarang cuma dipakai kargo.</p>
 </div>
 <div class="legenda">
 <h3>🚀 Concorde - Pesawat Supersonik</h3>
@@ -232,7 +230,7 @@ body.terang .alpha-item b{color:#0077ff}
 <div class="card" id="atc">
 <h2>7. 🗼 ATC - Air Traffic Control</h2>
 <img src="https://images.unsplash.com/photo-1541185934-01b600069069?w=800&q=80" alt="ATC Tower">
-<p><b>ATC itu siapa?</b><br>ATC adalah petugas di menara yang mengatur semua pesawat biar gak tabrakan.</p>
+<p><b>ATC itu siapa?</b><br>Petugas di menara yang mengatur semua pesawat biar gak tabrakan. Mereka yang kasih izin takeoff, landing, belok, naik, turun.</p>
 <div class="atc-box">
 <h3>🎧 3 Jenis ATC</h3>
 <p><b>1. Tower (TWR)</b> - Ngatur takeoff, landing, & taxi.<br><br><b>2. Approach / Departure (APP/DEP)</b> - Ngatur pesawat baru takeoff / mau mendarat.<br><br><b>3. Area Control (ACC)</b> - Ngatur pesawat terbang tinggi antar kota / negara.</p>
@@ -308,11 +306,10 @@ body.terang .alpha-item b{color:#0077ff}
 <footer>Aviation 101 (Demo version) • By Azraferoz Sean</footer>
 <script>
 var PASSWORD = "aviation101";
-var bahasaDipilih = 'id';
 function pilihBahasa(bhs){
-  bahasaDipilih = bhs;
-  document.getElementById('layarBahasa').classList.add('sembunyi');
-  document.getElementById('layarPeringatan').classList.remove('sembunyi');
+  document.getElementById('layarBahasa').style.display = 'none';
+  document.getElementById('layarPeringatan').style.display = 'flex';
   if(bhs === 'en'){
     document.getElementById('judulWarning').textContent = 'WARNING';
-    document.getElementById('teksWarning').innerHTML = 'This website is still under d
+    document.getElementById('teksWarning').innerHTML = 'This website is still under development.<br>Access is limited. Only Developer can enter the main screen.<br><br>Please contact Developer for access.';
+    document.getElementById('teksDe
