@@ -59,6 +59,17 @@ body.terang .controller{background:#eef7ff;color:#111}
 .video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
 footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 .hint{text-align:center;font-size:13px;opacity:.7;margin:10px 0 0}
+.atc-box{border:2px solid #ffcc00;border-radius:14px;padding:14px;margin-top:14px;background:#0b1220}
+body.terang .atc-box{background:#fff8e1;color:#111}
+.phrase{background:#0f2a1a;border:1px solid #00ff88;border-radius:10px;padding:12px;margin-top:10px;font-family:monospace;font-size:13px;line-height:1.6}
+body.terang .phrase{background:#e6ffee;color:#111}
+.alpha-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.alpha-item{background:#1e2f55;padding:10px;border-radius:10px;text-align:center}
+body.terang .alpha-item{background:#eee;color:#111}
+.alpha-item b{color:#ffcc00;font-size:16px}
+body.terang .alpha-item b{color:#0077ff}
+.profil{text-align:center;padding:20px 10px}
+.profil-foto{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#0077ff,#00c6ff);display:flex;align-items:center;justify-content:center;font-size:45px;font-weight:bold;margin:0 auto 14px;border:4px solid #ffcc00}
 </style>
 </head>
 <body>
@@ -79,6 +90,8 @@ footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 <button onclick="bukaDariMenu('legenda',this)">👑 Pesawat Legenda</button>
 <button onclick="bukaDariMenu('kamus',this)">📖 Kamus Pilot</button>
 <button onclick="bukaDariMenu('kecelakaan',this)">⚠️ Kecelakaan & Pelajaran</button>
+<button onclick="bukaDariMenu('atc',this)">🗼 ATC & Phraseology</button>
+<button onclick="bukaDariMenu('programmer',this)">👨‍💻 Programmer</button>
 </div>
 <p style="margin-top:20px;font-size:12px">Dibuat untuk pecinta aviasi Indonesia.<br>Versi Demo - 2026</p>
 </div>
@@ -190,40 +203,109 @@ footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 <div class="kecelakaan"><b>✈️ US Airways 1549 - Miracle on the Hudson</b><br>2 mesin mati, mendarat di sungai, SEMUA SELAMAT.<div class="pelajaran"><b>✅ PELAJARANNYA:</b> Keputusan cepat menyelamatkan 155 nyawa.</div></div>
 </div>
 
-<footer>Aviation 101 (Demo version) • Belajar Dasar Penerbangan</footer>
+<div class="card" id="atc">
+<h2>7. 🗼 ATC - Air Traffic Control</h2>
+<img src="https://images.unsplash.com/photo-1541185934-01b600069069?w=800&q=80" alt="ATC Tower">
+<p><b>ATC itu siapa?</b><br>ATC adalah petugas di menara / tower yang mengatur semua pesawat biar gak tabrakan. Mereka yang kasih izin takeoff, landing, belok, naik, turun. Pilot WAJIB nurut sama ATC!</p>
+
+<div class="atc-box">
+<h3>🎧 3 Jenis ATC</h3>
+<p><b>1. Tower (TWR)</b> - Di menara bandara. Ngatur pesawat yang mau takeoff, landing, & taxi di landasan.<br><br>
+<b>2. Approach / Departure (APP/DEP)</b> - Ngatur pesawat yang baru takeoff atau mau mendarat, dalam radius ~80 km dari bandara.<br><br>
+<b>3. Area Control / En-Route (ACC)</b> - Ngatur pesawat yang lagi terbang tinggi antar kota / antar negara. Contoh: Jakarta Control.</p>
+</div>
+
+<div class="atc-box">
+<h3>📡 Contoh Percakapan Asli Pilot & ATC</h3>
+<p><b>Skenario: Garuda 123 mau takeoff dari Soekarno-Hatta</b></p>
+<div class="phrase">
+<b>PILOT:</b> Soekarno-Hatta Tower, Garuda One Two Three, ready for departure, Runway Two Five Right.<br><br>
+<b>ATC:</b> Garuda One Two Three, Soekarno-Hatta Tower, wind Two Seven Zero at Eight knots, Runway Two Five Right, cleared for takeoff.<br><br>
+<b>PILOT:</b> Cleared for takeoff, Runway Two Five Right, Garuda One Two Three.
+</div>
+<p style="font-size:13px;margin-top:10px"><b>Artinya:</b> Pilot minta izin berangkat, ATC kasih izin + info angin, pilot ulangi lagi biar gak salah dengar. Ini namanya <b>READBACK</b> - wajib!</p>
+</div>
+
+<div class="atc-box">
+<h3>🗣️ Kata-Kata Wajib (Phraseology)</h3>
+<p>
+<b>ROGER</b> = Saya dengar & mengerti.<br>
+<b>WILCO</b> = Will Comply = Siap dilaksanakan.<br>
+<b>AFFIRM / AFFIRMATIVE</b> = Ya / Benar.<br>
+<b>NEGATIVE</b> = Tidak / Salah.<br>
+<b>MAYDAY</b> = Darurat! Nyawa terancam.<br>
+<b>PAN PAN</b> = Darurat tapi gak separah Mayday.<br>
+<b>SQUAWK</b> = Set kode transponder.<br>
+<b>HOLD SHORT</b> = Berhenti sebelum landasan, jangan masuk!<br>
+<b>CLEARED FOR TAKEOFF</b> = Boleh lepas landas.<br>
+<b>CLEARED TO LAND</b> = Boleh mendarat.<br>
+<b>GO AROUND</b> = Batal mendarat, naik lagi & coba lagi!
+</p>
+</div>
+
+<div class="atc-box">
+<h3>🔤 Alfabet NATO - Biar Gak Salah Dengar!</h3>
+<p>Huruf B dan D kan mirip suaranya di radio. Makanya pilot pake kata khusus. Lo harus hafal nih!</p>
+<div class="alpha-grid">
+<div class="alpha-item"><b>A</b><br>ALPHA</div>
+<div class="alpha-item"><b>B</b><br>BRAVO</div>
+<div class="alpha-item"><b>C</b><br>CHARLIE</div>
+<div class="alpha-item"><b>D</b><br>DELTA</div>
+<div class="alpha-item"><b>E</b><br>ECHO</div>
+<div class="alpha-item"><b>F</b><br>FOXTROT</div>
+<div class="alpha-item"><b>G</b><br>GOLF</div>
+<div class="alpha-item"><b>H</b><br>HOTEL</div>
+<div class="alpha-item"><b>I</b><br>INDIA</div>
+<div class="alpha-item"><b>J</b><br>JULIETT</div>
+<div class="alpha-item"><b>K</b><br>KILO</div>
+<div class="alpha-item"><b>L</b><br>LIMA</div>
+<div class="alpha-item"><b>M</b><br>MIKE</div>
+<div class="alpha-item"><b>N</b><br>NOVEMBER</div>
+<div class="alpha-item"><b>O</b><br>OSCAR</div>
+<div class="alpha-item"><b>P</b><br>PAPA</div>
+<div class="alpha-item"><b>Q</b><br>QUEBEC</div>
+<div class="alpha-item"><b>R</b><br>ROMEO</div>
+<div class="alpha-item"><b>S</b><br>SIERRA</div>
+<div class="alpha-item"><b>T</b><br>TANGO</div>
+<div class="alpha-item"><b>U</b><br>UNIFORM</div>
+<div class="alpha-item"><b>V</b><br>VICTOR</div>
+<div class="alpha-item"><b>W</b><br>WHISKEY</div>
+<div class="alpha-item"><b>X</b><br>X-RAY</div>
+<div class="alpha-item"><b>Y</b><br>YANKEE</div>
+<div class="alpha-item"><b>Z</b><br>ZULU</div>
+</div>
+<p style="margin-top:14px"><b>Contoh pakenya:</b><br>Registrasi pesawat <b>PK-GIK</b> dibaca: <b>"Papa Kilo - Golf India Kilo"</b><br>Callsign <b>GIA123</b> dibaca: <b>"Garuda One Two Three"</b></p>
+<p><b>Angka juga beda!</b><br>0 = ZERO &nbsp; 1 = ONE &nbsp; 2 = TWO &nbsp; 3 = TREE &nbsp; 4 = FOWER &nbsp; 5 = FIFE &nbsp; 6 = SIX &nbsp; 7 = SEVEN &nbsp; 8 = EIGHT &nbsp; 9 = NINER<br>Jadi angka 9 dibaca <b>NINER</b>, bukan NINE, biar gak ketuker sama kata Jerman "Nein"!</p>
+</div>
+</div>
+
+<div class="card" id="programmer">
+<div class="profil">
+<div class="profil-foto">AS</div>
+<h2 style="text-align:center">Azraferoz Sean</h2>
+<p style="text-align:center;color:#ffcc00;font-weight:bold">Founder & Programmer - Aviation 101</p>
+<p>Halo! Gue <b>Azraferoz Sean</b>, yang bikin web Aviation 101 ini dari nol.</p>
+<p>Dibuat karena gue suka banget sama dunia penerbangan - dari cara pesawat terbang, bedanya Boeing & Airbus, sampai cara pilot ngomong sama ATC pake bahasa Romeo Alpha segala macem.</p>
+<div class="box" style="text-align:left;margin-top:16px">
+<b>✈️ Tentang Gue:</b><br><br>
+<b>Nama:</b> Azraferoz Sean<br>
+<b>Role:</b> Programmer & Desainer Web<br>
+<b>Project:</b> Aviation 101 (Demo Version)<br>
+<b>Passion:</b> Aviasi, Teknologi, & Coding<br>
+<b>Tahun:</b> 2026
+</div>
+<div class="box" style="text-align:left;margin-top:12px">
+<b>💬 Pesan dari Gue:</b><br>
+<i>"Semoga web ini bikin lo makin suka sama dunia aviasi. Siapa tau dari baca-baca di sini, lo jadi pilot beneran atau ATC beneran suatu hari nanti. Keep dreaming, keep flying!"</i><br><br>
+- Azraferoz Sean
+</div>
+<p style="margin-top:16px;font-size:13px;opacity:.7">Terima kasih udah mampir ke Aviation 101! 🛫</p>
+</div>
+</div>
+
+<footer>Aviation 101 (Demo version) • Belajar Dasar Penerbangan • By Azraferoz Sean</footer>
 <script>
 function gantiMode(){document.body.classList.toggle('terang')}
 function buka(id){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('aktif'));
-  document.getElementById(id).classList.add('aktif');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function bukaMenu(){
-  document.getElementById('sidebar').classList.add('buka');
-  document.getElementById('overlay').classList.add('tampil');
-}
-function tutupMenu(){
-  document.getElementById('sidebar').classList.remove('buka');
-  document.getElementById('overlay').classList.remove('tampil');
-}
-function bukaDariMenu(id,btn){
-  buka(id);
-  document.querySelectorAll('.sidebar-menu button').forEach(b=>b.classList.remove('aktif'));
-  btn.classList.add('aktif');
-  tutupMenu();
-}
-function updateJam(){
-  var now=new Date();
-  var jam=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0')+' WIB';
-  var tanggal=now.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  document.getElementById('jamAtas').textContent=jam;
-  document.getElementById('tanggalAtas').textContent=tanggal;
-  document.getElementById('jamSidebar').textContent=jam;
-  document.getElementById('tanggalSidebar').textContent=tanggal;
-}
-setInterval(updateJam,1000);
-updateJam();
-</script>
-</body>
-  </html>
-  
+  document.getElementById(id).classList.add('ak
