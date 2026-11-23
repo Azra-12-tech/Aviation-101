@@ -29,11 +29,12 @@ nav button.aktif{background:#00c6ff;color:black;font-weight:bold}
 .card img{width:100%;height:200px;object-fit:cover;border-radius:12px;margin:10px 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .box{background:#0b1220;padding:14px;border-radius:12px;border:1px solid #2a3a65}
-button.quiz{width:100%;padding:14px;border:none;border-radius:12px;background:#ffcc00;font-weight:bold;font-size:16px;margin-top:10px}
 .kecelakaan{border-left:5px solid #ff4444;background:#1a0f0f;padding:14px;border-radius:10px;margin-top:14px}
 body.terang .kecelakaan{background:#ffecec;color:#111}
 .pelajaran{background:#0f2a1a;padding:12px;border-radius:10px;margin-top:8px;border:1px solid #00ff88}
 body.terang .pelajaran{background:#e6ffee;color:#111}
+.legenda{border:1px solid #00c6ff;border-radius:14px;padding:14px;margin-top:16px;background:#0b1220}
+body.terang .legenda{background:#eef7ff;color:#111}
 footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 </style>
 </head>
@@ -44,9 +45,9 @@ footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 <button onclick="buka('gaya',this)" class="aktif">4 Gaya</button>
 <button onclick="buka('jenis',this)">Jenis</button>
 <button onclick="buka('indo',this)">🇮🇩 Indonesia</button>
+<button onclick="buka('legenda',this)">👑 Legenda</button>
 <button onclick="buka('kamus',this)">Kamus</button>
 <button onclick="buka('kecelakaan',this)">Kecelakaan</button>
-<button onclick="buka('quiz',this)">Quiz</button>
 </nav>
 
 <div class="card aktif" id="gaya">
@@ -80,27 +81,45 @@ footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 <p>Lion Air adalah maskapai dengan armada terbesar di Indonesia. Boeing 737 menjadi tulang punggung untuk penerbangan domestik ke seluruh Indonesia.</p>
 </div>
 
+<div class="card" id="legenda">
+<h2>4. Pesawat Paling Terkenal di Dunia</h2>
+<p>Ini 3 pesawat yang paling melegenda di sejarah aviasi!</p>
+
+<div class="legenda">
+<h3>👑 Boeing 747 - Queen of the Skies</h3>
+<img src="https://cdn.aeroreport.de/media/pages/good-to-know/boeing-747-die-koenigin-der-luefte/kopf/2e9ed6bce3-1760429390/r6dqzp_747_exp_aerial_02b_post_2048px-2000x.webp" alt="Boeing 747">
+<p><b>Julukan:</b> Ratu Langit<br><b>Terbang pertama:</b> 1969<br><b>Ciri khas:</b> Punya punuk / lantai 2 di depan, 4 mesin.</p>
+<p>Pesawat yang bikin orang biasa bisa keliling dunia. Dulu Garuda juga punya 747 untuk haji & umroh. Produksinya berhenti di 2022 setelah 1.574 unit dibuat.</p>
+</div>
+
+<div class="legenda">
+<h3>🏰 Airbus A380 - Raksasa 2 Lantai Penuh</h3>
+<img src="https://resources.globalair.com/images/article/a380.jpg?w=800" alt="Airbus A380">
+<p><b>Julukan:</b> Superjumbo<br><b>Terbang pertama:</b> 2005<br><b>Ciri khas:</b> 2 lantai penuh dari depan sampai belakang, 4 mesin, bisa bawa 850 penumpang!</p>
+<p>Pesawat penumpang TERBESAR di dunia. Punya bar, shower, sampai kamar tidur di kelas First Class-nya Emirates. Produksinya berhenti di 2021.</p>
+</div>
+
+<div class="legenda">
+<h3>📦 McDonnell Douglas MD-11F - Si Kargo 3 Mesin</h3>
+<img src="https://userfiles.planespot.app/0Drt056mx0u_1AEVJeDvy6wOHZiusvw4LIRprwsztSY_1767752295_preview.jpg" alt="MD-11F FedEx">
+<p><b>Julukan:</b> Trijet Terakhir<br><b>Terbang pertama:</b> 1990<br><b>Ciri khas:</b> 3 mesin - 2 di sayap, 1 di ekor. Sekarang cuma dipakai kargo.</p>
+<p>Dulu dipakai Garuda juga versi penumpangnya! Sekarang MD-11F cuma dipakai FedEx, UPS, dan Lufthansa Cargo. FedEx berencana pensiunkan di 2028. Jadi buruan foto kalau liat!</p>
+</div>
+</div>
+
 <div class="card" id="kamus">
-<h2>4. Kamus Pilot</h2>
+<h2>5. Kamus Pilot</h2>
 <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=800&q=80" alt="Kokpit">
 <p><b>Takeoff:</b> Lepas landas.<br><b>Landing:</b> Mendarat.<br><b>Turbulence:</b> Guncangan, hal yang normal.<br><b>Stall:</b> Kehilangan Lift.<br><b>Mayday:</b> Kode darurat serius.<br><b>Black Box:</b> Berwarna oranye, berisi rekaman kokpit.</p>
 </div>
 
 <div class="card" id="kecelakaan">
-<h2>5. Kecelakaan Pesawat & Pelajarannya</h2>
+<h2>6. Kecelakaan Pesawat & Pelajarannya</h2>
 <p>Aviasi berkembang karena belajar dari setiap kejadian.</p>
 <div class="kecelakaan"><b>✈️ Tenerife 1977</b><br>Dua Boeing 747 bertabrakan di landasan berkabut.<div class="pelajaran"><b>✅ PELAJARANNYA:</b> Pilot dan ATC wajib menggunakan bahasa standar yang jelas.</div></div>
 <div class="kecelakaan"><b>✈️ Air France 447 (2009)</b><br>Sensor membeku, pesawat stall.<div class="pelajaran"><b>✅ PELAJARANNYA:</b> Pilot dilatih menghadapi sensor mati.</div></div>
 <div class="kecelakaan"><b>✈️ Lion Air JT610 & Ethiopian 302 - 737 MAX</b><br>Sistem MCAS salah membaca sensor.<div class="pelajaran"><b>✅ PELAJARANNYA:</b> 737 MAX dilarang terbang 2 tahun, sistem diperbaiki.</div></div>
 <div class="kecelakaan"><b>✈️ US Airways 1549 - Miracle on the Hudson</b><br>2 mesin mati, mendarat di sungai, SEMUA SELAMAT.<div class="pelajaran"><b>✅ PELAJARANNYA:</b> Keputusan cepat menyelamatkan 155 nyawa.</div></div>
-</div>
-
-<div class="card" id="quiz">
-<h2>6. Quiz</h2>
-<p>Apa yang membuat pesawat naik?</p>
-<button class="quiz" onclick="jawab('salah')">A. Thrust</button>
-<button class="quiz" onclick="jawab('benar')">B. Lift</button>
-<p id="hasil"></p>
 </div>
 
 <footer>AVIASI 101 • Belajar Dasar Penerbangan</footer>
@@ -113,11 +132,6 @@ function buka(id,btn){
   btn.classList.add('aktif');
   window.scrollTo({top:0,behavior:'smooth'});
 }
-function jawab(j){
-  let h=document.getElementById('hasil');
-  if(j=='benar'){h.innerText='✅ BENAR!';h.style.color='#00ff88'}
-  else{h.innerText='❌ Salah, jawabannya Lift';h.style.color='red'}
-}
 </script>
 </body>
-                                                         </html>
+</html>
