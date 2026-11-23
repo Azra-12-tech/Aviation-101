@@ -308,4 +308,34 @@ body.terang .alpha-item b{color:#0077ff}
 function gantiMode(){document.body.classList.toggle('terang')}
 function buka(id){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('aktif'));
-  document.getElementById(id).classList.add('ak
+  document.getElementById(id).classList.add('aktif');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bukaMenu(){
+  document.getElementById('sidebar').classList.add('buka');
+  document.getElementById('overlay').classList.add('tampil');
+}
+function tutupMenu(){
+  document.getElementById('sidebar').classList.remove('buka');
+  document.getElementById('overlay').classList.remove('tampil');
+}
+function bukaDariMenu(id,btn){
+  buka(id);
+  document.querySelectorAll('.sidebar-menu button').forEach(b=>b.classList.remove('aktif'));
+  btn.classList.add('aktif');
+  tutupMenu();
+}
+function updateJam(){
+  var now=new Date();
+  var jam=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0')+' WIB';
+  var tanggal=now.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('jamAtas').textContent=jam;
+  document.getElementById('tanggalAtas').textContent=tanggal;
+  document.getElementById('jamSidebar').textContent=jam;
+  document.getElementById('tanggalSidebar').textContent=tanggal;
+}
+setInterval(updateJam,1000);
+updateJam();
+</script>
+</body>
+</html>
