@@ -9,6 +9,15 @@ body{font-family:system-ui,sans-serif;margin:0;background:#0b1220;color:white}
 body.terang{background:#f2f2f2;color:#111}
 body.terang .card{background:white;color:#111}
 body.terang .box{background:#eee;color:#111;border-color:#ccc}
+.layar-penuh{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,#0b1220,#16223f);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;overflow-y:auto}
+.layar-penuh.sembunyi{display:none}
+.logo-besar{font-size:60px;margin-bottom:5px}
+.btn-bahasa{width:100%;max-width:320px;background:white;color:#111;border:none;padding:16px;border-radius:16px;margin:8px 0;font-size:17px;font-weight:bold;cursor:pointer}
+.btn-utama{width:100%;max-width:320px;background:#00c6ff;color:black;border:none;padding:15px;border-radius:14px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:12px}
+.btn-dev{width:100%;max-width:320px;background:#ffcc00;color:black;border:none;padding:13px;border-radius:14px;font-size:14px;font-weight:bold;cursor:pointer;margin-top:10px}
+.btn-kembali{background:none;border:1px solid #555;color:#ccc;padding:8px 16px;border-radius:20px;margin-top:16px;cursor:pointer}
+.input-pass{width:100%;max-width:320px;padding:14px;border-radius:12px;border:2px solid #00c6ff;background:#0b1220;color:white;font-size:16px;text-align:center;outline:none;margin-top:12px}
+.warning-box{background:#2a1a00;border:2px solid #ffcc00;border-radius:16px;padding:16px;max-width:340px;margin:12px 0}
 header{background:linear-gradient(135deg,#0077ff,#00c6ff);padding:25px 20px 10px;text-align:center}
 .demo-badge{background:#ffcc00;color:black;font-size:11px;font-weight:bold;padding:4px 10px;border-radius:20px;letter-spacing:1px}
 .sky{height:80px;position:relative;overflow:hidden}
@@ -28,7 +37,7 @@ body.terang .jam-live{color:#008800}
 .tanggal-live{color:#ccc;font-size:10px;white-space:nowrap}
 body.terang .tanggal-live{color:#555}
 .btn-mode{background:#ffcc00;border:none;padding:8px 10px;border-radius:20px;font-weight:bold;font-size:12px}
-.sidebar{position:fixed;top:0;left:-300px;width:280px;height:100%;background:#111c33;color:white;z-index:100;transition:.3s;padding:20px;overflow-y:auto;box-shadow:5px 0 20px rgba(0,0,0,.5)}
+.sidebar{position:fixed;top:0;left:-300px;width:280px;height:100%;background:#111c33;color:white;z-index:100;transition:.3s;padding:20px;overflow-y:auto}
 .sidebar.buka{left:0}
 .sidebar .close{float:right;background:none;border:none;color:white;font-size:22px;cursor:pointer}
 .sidebar h2{color:#00c6ff;margin:10px 0 5px}
@@ -74,8 +83,33 @@ body.terang .alpha-item b{color:#0077ff}
 </head>
 <body>
 
-<div class="overlay" id="overlay" onclick="tutupMenu()"></div>
+<div class="layar-penuh" id="layarBahasa">
+<div class="logo-besar">✈️</div>
+<h1 style="margin:5px 0">Aviation 101</h1>
+<span class="demo-badge">DEMO VERSION</span>
+<p style="opacity:.8;margin:18px 0 8px">Pilih Bahasa / Choose Language</p>
+<button class="btn-bahasa" onclick="pilihBahasa('id')">🇮🇩 Bahasa Indonesia</button>
+<button class="btn-bahasa" onclick="pilihBahasa('en')">🇬🇧 English</button>
+<p style="font-size:12px;opacity:.6;margin-top:20px">By Azraferoz Sean • 2026</p>
+</div>
 
+<div class="layar-penuh sembunyi" id="layarPeringatan">
+<div style="font-size:50px">⚠️</div>
+<h2 id="judulWarning" style="margin:8px 0">PERINGATAN</h2>
+<div class="warning-box">
+<p id="teksWarning" style="margin:0;line-height:1.6;font-size:14px">Website ini masih dalam tahap pengembangan.<br>Akses terbatas. Hanya Developer yang bisa masuk ke layar utama.<br><br>Silakan hubungi Developer untuk akses.</p>
+</div>
+<p id="teksDevInfo" style="font-size:13px;opacity:.8">Pencet tombol di bawah untuk masuk sebagai Developer.</p>
+<div id="areaPass" style="display:none;width:100%;max-width:320px">
+<input type="password" id="inputPass" class="input-pass" placeholder="Masukkan Password Developer">
+<p id="pesanSalah" style="color:#ff5555;font-size:13px;display:none;margin:8px 0">❌ Password salah! Coba lagi.</p>
+<button class="btn-utama" id="btnMasuk" onclick="cekPassword()">🔓 MASUK</button>
+</div>
+<button class="btn-dev" id="btnDev" onclick="tampilPass()">👨‍💻 DEVELOPER MODE</button>
+<button class="btn-kembali" onclick="kembaliBahasa()">← <span id="teksKembali">Ganti Bahasa</span></button>
+</div>
+
+<div class="overlay" id="overlay" onclick="tutupMenu()"></div>
 <div class="sidebar" id="sidebar">
 <button class="close" onclick="tutupMenu()">✕</button>
 <h2>✈️ Aviation 101</h2>
@@ -129,19 +163,16 @@ body.terang .alpha-item b{color:#0077ff}
 <img src="https://theaircurrent.com/wp-content/uploads/2019/12/boeing-737-max-yoke-883x589.jpg" alt="Boeing Yoke">
 <p><b>Contoh:</b> 737, 777, 787</p>
 <p><b>Bentuknya:</b> Kayak setir mobil, ada di depan pilot. Diputar kiri-kanan, ditarik-dorong.</p>
-<p><b>Rasanya:</b> Pilot bisa ngerasain langsung beratnya pesawat. Kalau pilot kiri narik, yoke kanan ikut gerak!</p>
-<p><b>Pilot bilang:</b> "Lebih berasa jadi pilot beneran, lebih manual."</p>
+<p><b>Rasanya:</b> Pilot bisa ngerasain langsung beratnya pesawat.</p>
 </div>
 <div class="controller">
 <h3>🇪🇺 Airbus - Pakai SIDE-STICK</h3>
 <img src="https://assets.kmart.com.au/transform/902c1f22-3330-4912-82d8-0b8ecb6e66e9/110063950-1?io=transform:fit,width:1920,height:2400&quality=90" alt="Airbus Side-Stick">
 <p><b>Contoh:</b> A320, A350, A380</p>
-<p><b>Bentuknya:</b> Kayak joystick game / PS! Cuma ada di samping kiri & kanan, bukan di depan.</p>
-<p><b>Rasanya:</b> Enteng banget, cuma digerakin pake 1 tangan. Ada meja di depan pilot, bisa buat naruh kopi & makan! ☕</p>
-<p><b>Pilot bilang:</b> "Lebih santai, lebih canggih, komputer yang bantuin banyak."</p>
+<p><b>Bentuknya:</b> Kayak joystick game / PS! Cuma ada di samping kiri & kanan.</p>
+<p><b>Rasanya:</b> Enteng banget, cuma digerakin pake 1 tangan. Bisa buat naruh kopi! ☕</p>
 </div>
-<div class="box" style="margin-top:14px"><b>🤔 JADI PILIH MANA?</b><br>Pilot Boeing suka yang manual & berasa. Pilot Airbus suka yang santai & modern. Gak ada yang lebih bagus, cuma selera! Lo tim mana? Tim Setir atau Tim Joystick?</div>
-<p style="margin-top:14px"><b>Jenis Mesin:</b><br><b>Jet:</b> Jarak jauh. <b>Turboprop:</b> Jarak dekat, ATR 72. <b>Propeller:</b> Pesawat latih, Cessna 172.</p>
+<div class="box" style="margin-top:14px"><b>🤔 JADI PILIH MANA?</b><br>Pilot Boeing suka yang manual & berasa. Pilot Airbus suka yang santai & modern. Lo tim mana?</div>
 </div>
 
 <div class="card" id="indo">
@@ -154,35 +185,31 @@ body.terang .alpha-item b{color:#0077ff}
 <p>Airbus A330 dipakai Garuda untuk rute Asia seperti Jakarta - Tokyo (Narita) dan Jakarta - Singapura.</p>
 <h3>Lion Air - Boeing 737 MAX 8</h3>
 <img src="https://photos.flightaware.com/photos/retriever/8a1db3e3a2a104da3d13a9913ced0b0196a9722c" alt="Lion Air Boeing 737">
-<p>Lion Air adalah maskapai dengan armada terbesar di Indonesia. Boeing 737 menjadi tulang punggung untuk penerbangan domestik ke seluruh Indonesia.</p>
+<p>Lion Air adalah maskapai dengan armada terbesar di Indonesia. Boeing 737 menjadi tulang punggung untuk penerbangan domestik.</p>
 </div>
 
 <div class="card" id="legenda">
 <h2>4. Pesawat Paling Terkenal di Dunia</h2>
-<p>Ini 4 pesawat yang paling melegenda di sejarah aviasi!</p>
 <div class="legenda">
 <h3>👑 Boeing 747 - Queen of the Skies</h3>
 <img src="https://cdn.aeroreport.de/media/pages/good-to-know/boeing-747-die-koenigin-der-luefte/kopf/2e9ed6bce3-1760429390/r6dqzp_747_exp_aerial_02b_post_2048px-2000x.webp" alt="Boeing 747">
 <p><b>Julukan:</b> Ratu Langit<br><b>Terbang pertama:</b> 1969<br><b>Ciri khas:</b> Punya punuk / lantai 2 di depan, 4 mesin.</p>
-<p>Pesawat yang bikin orang biasa bisa keliling dunia. Dulu Garuda juga punya 747 untuk haji & umroh. Produksinya berhenti di 2022 setelah 1.574 unit dibuat.</p>
 </div>
 <div class="legenda">
 <h3>🏰 Airbus A380 - Raksasa 2 Lantai Penuh</h3>
 <img src="https://resources.globalair.com/images/article/a380.jpg?w=800" alt="Airbus A380">
-<p><b>Julukan:</b> Superjumbo<br><b>Terbang pertama:</b> 2005<br><b>Ciri khas:</b> 2 lantai penuh dari depan sampai belakang, 4 mesin, bisa bawa 850 penumpang!</p>
-<p>Pesawat penumpang TERBESAR di dunia. Punya bar, shower, sampai kamar tidur di kelas First Class-nya Emirates. Produksinya berhenti di 2021.</p>
+<p><b>Julukan:</b> Superjumbo<br><b>Terbang pertama:</b> 2005<br><b>Ciri khas:</b> 2 lantai penuh, 4 mesin, bisa bawa 850 penumpang!</p>
 </div>
 <div class="legenda">
-<h3>📦 McDonnell Douglas MD-11F - Si Kargo 3 Mesin</h3>
+<h3>📦 MD-11F - Si Kargo 3 Mesin</h3>
 <img src="https://userfiles.planespot.app/0Drt056mx0u_1AEVJeDvy6wOHZiusvw4LIRprwsztSY_1767752295_preview.jpg" alt="MD-11F FedEx">
-<p><b>Julukan:</b> Trijet Terakhir<br><b>Terbang pertama:</b> 1990<br><b>Ciri khas:</b> 3 mesin - 2 di sayap, 1 di ekor. Sekarang cuma dipakai kargo.</p>
-<p>Dulu dipakai Garuda juga versi penumpangnya! Sekarang MD-11F cuma dipakai FedEx, UPS, dan Lufthansa Cargo. FedEx berencana pensiunkan di 2028.</p>
+<p><b>Julukan:</b> Trijet Terakhir<br><b>Terbang pertama:</b> 1990<br><b>Ciri khas:</b> 3 mesin - 2 di sayap, 1 di ekor.</p>
 </div>
 <div class="legenda">
 <h3>🚀 Concorde - Pesawat Supersonik</h3>
 <img src="https://i.pinimg.com/originals/95/85/e5/9585e5cdd0754c3cc1670ce7ce511bd7.jpg" alt="Concorde">
-<p><b>Julukan:</b> Si Burung Putih<br><b>Terbang pertama:</b> 1969<br><b>Ciri khas:</b> Hidung bisa turun naik (droop nose), sayap delta, 4 mesin + afterburner.</p>
-<p>London - New York cuma 3 JAM! Kecepatannya Mach 2.04 = 2.180 km/jam, 2x kecepatan suara! Terbang setinggi 18.300m, penumpangnya bisa liat lengkungan bumi!</p>
+<p><b>Julukan:</b> Si Burung Putih<br><b>Terbang pertama:</b> 1969<br><b>Ciri khas:</b> Hidung bisa turun naik, sayap delta, 4 mesin + afterburner.</p>
+<p>London - New York cuma 3 JAM! Kecepatannya Mach 2.04 = 2.180 km/jam!</p>
 <p><b>🎥 NONTON NIH, DARI DALEM KOKPIT PAS TAKEOFF:</b></p>
 <div class="video"><iframe src="https://www.youtube.com/embed/xgOo6sqJQmA" allowfullscreen></iframe></div>
 </div>
@@ -196,7 +223,6 @@ body.terang .alpha-item b{color:#0077ff}
 
 <div class="card" id="kecelakaan">
 <h2>6. Kecelakaan Pesawat & Pelajarannya</h2>
-<p>Aviasi berkembang karena belajar dari setiap kejadian.</p>
 <div class="kecelakaan"><b>✈️ Tenerife 1977</b><br>Dua Boeing 747 bertabrakan di landasan berkabut.<div class="pelajaran"><b>✅ PELAJARANNYA:</b> Pilot dan ATC wajib menggunakan bahasa standar yang jelas.</div></div>
 <div class="kecelakaan"><b>✈️ Air France 447 (2009)</b><br>Sensor membeku, pesawat stall.<div class="pelajaran"><b>✅ PELAJARANNYA:</b> Pilot dilatih menghadapi sensor mati.</div></div>
 <div class="kecelakaan"><b>✈️ Lion Air JT610 & Ethiopian 302 - 737 MAX</b><br>Sistem MCAS salah membaca sensor.<div class="pelajaran"><b>✅ PELAJARANNYA:</b> 737 MAX dilarang terbang 2 tahun, sistem diperbaiki.</div></div>
@@ -206,46 +232,25 @@ body.terang .alpha-item b{color:#0077ff}
 <div class="card" id="atc">
 <h2>7. 🗼 ATC - Air Traffic Control</h2>
 <img src="https://images.unsplash.com/photo-1541185934-01b600069069?w=800&q=80" alt="ATC Tower">
-<p><b>ATC itu siapa?</b><br>ATC adalah petugas di menara / tower yang mengatur semua pesawat biar gak tabrakan. Mereka yang kasih izin takeoff, landing, belok, naik, turun. Pilot WAJIB nurut sama ATC!</p>
-
+<p><b>ATC itu siapa?</b><br>ATC adalah petugas di menara yang mengatur semua pesawat biar gak tabrakan.</p>
 <div class="atc-box">
 <h3>🎧 3 Jenis ATC</h3>
-<p><b>1. Tower (TWR)</b> - Di menara bandara. Ngatur pesawat yang mau takeoff, landing, & taxi di landasan.<br><br>
-<b>2. Approach / Departure (APP/DEP)</b> - Ngatur pesawat yang baru takeoff atau mau mendarat, dalam radius ~80 km dari bandara.<br><br>
-<b>3. Area Control / En-Route (ACC)</b> - Ngatur pesawat yang lagi terbang tinggi antar kota / antar negara. Contoh: Jakarta Control.</p>
+<p><b>1. Tower (TWR)</b> - Ngatur takeoff, landing, & taxi.<br><br><b>2. Approach / Departure (APP/DEP)</b> - Ngatur pesawat baru takeoff / mau mendarat.<br><br><b>3. Area Control (ACC)</b> - Ngatur pesawat terbang tinggi antar kota / negara.</p>
 </div>
-
 <div class="atc-box">
-<h3>📡 Contoh Percakapan Asli Pilot & ATC</h3>
-<p><b>Skenario: Garuda 123 mau takeoff dari Soekarno-Hatta</b></p>
+<h3>📡 Contoh Percakapan Pilot & ATC</h3>
 <div class="phrase">
 <b>PILOT:</b> Soekarno-Hatta Tower, Garuda One Two Three, ready for departure, Runway Two Five Right.<br><br>
-<b>ATC:</b> Garuda One Two Three, Soekarno-Hatta Tower, wind Two Seven Zero at Eight knots, Runway Two Five Right, cleared for takeoff.<br><br>
-<b>PILOT:</b> Cleared for takeoff, Runway Two Five Right, Garuda One Two Three.
+<b>ATC:</b> Garuda One Two Three, cleared for takeoff, Runway Two Five Right.<br><br>
+<b>PILOT:</b> Cleared for takeoff, Garuda One Two Three.
 </div>
-<p style="font-size:13px;margin-top:10px"><b>Artinya:</b> Pilot minta izin berangkat, ATC kasih izin + info angin, pilot ulangi lagi biar gak salah dengar. Ini namanya <b>READBACK</b> - wajib!</p>
 </div>
-
 <div class="atc-box">
-<h3>🗣️ Kata-Kata Wajib (Phraseology)</h3>
-<p>
-<b>ROGER</b> = Saya dengar & mengerti.<br>
-<b>WILCO</b> = Will Comply = Siap dilaksanakan.<br>
-<b>AFFIRM / AFFIRMATIVE</b> = Ya / Benar.<br>
-<b>NEGATIVE</b> = Tidak / Salah.<br>
-<b>MAYDAY</b> = Darurat! Nyawa terancam.<br>
-<b>PAN PAN</b> = Darurat tapi gak separah Mayday.<br>
-<b>SQUAWK</b> = Set kode transponder.<br>
-<b>HOLD SHORT</b> = Berhenti sebelum landasan, jangan masuk!<br>
-<b>CLEARED FOR TAKEOFF</b> = Boleh lepas landas.<br>
-<b>CLEARED TO LAND</b> = Boleh mendarat.<br>
-<b>GO AROUND</b> = Batal mendarat, naik lagi & coba lagi!
-</p>
+<h3>🗣️ Kata-Kata Wajib</h3>
+<p><b>ROGER</b> = Saya dengar & mengerti.<br><b>WILCO</b> = Siap dilaksanakan.<br><b>AFFIRM</b> = Ya / Benar.<br><b>NEGATIVE</b> = Tidak.<br><b>MAYDAY</b> = Darurat!<br><b>PAN PAN</b> = Darurat tapi gak separah Mayday.<br><b>GO AROUND</b> = Batal mendarat, naik lagi!</p>
 </div>
-
 <div class="atc-box">
-<h3>🔤 Alfabet NATO - Biar Gak Salah Dengar!</h3>
-<p>Huruf B dan D kan mirip suaranya di radio. Makanya pilot pake kata khusus. Lo harus hafal nih!</p>
+<h3>🔤 Alfabet NATO</h3>
 <div class="alpha-grid">
 <div class="alpha-item"><b>A</b><br>ALPHA</div>
 <div class="alpha-item"><b>B</b><br>BRAVO</div>
@@ -274,8 +279,7 @@ body.terang .alpha-item b{color:#0077ff}
 <div class="alpha-item"><b>Y</b><br>YANKEE</div>
 <div class="alpha-item"><b>Z</b><br>ZULU</div>
 </div>
-<p style="margin-top:14px"><b>Contoh pakenya:</b><br>Registrasi pesawat <b>PK-GIK</b> dibaca: <b>"Papa Kilo - Golf India Kilo"</b><br>Callsign <b>GIA123</b> dibaca: <b>"Garuda One Two Three"</b></p>
-<p><b>Angka juga beda!</b><br>0 = ZERO &nbsp; 1 = ONE &nbsp; 2 = TWO &nbsp; 3 = TREE &nbsp; 4 = FOWER &nbsp; 5 = FIFE &nbsp; 6 = SIX &nbsp; 7 = SEVEN &nbsp; 8 = EIGHT &nbsp; 9 = NINER<br>Jadi angka 9 dibaca <b>NINER</b>, bukan NINE, biar gak ketuker sama kata Jerman "Nein"!</p>
+<p style="margin-top:14px"><b>Contoh:</b> PK-GIK dibaca <b>"Papa Kilo - Golf India Kilo"</b></p>
 </div>
 </div>
 
@@ -285,7 +289,6 @@ body.terang .alpha-item b{color:#0077ff}
 <h2 style="text-align:center">Azraferoz Sean</h2>
 <p style="text-align:center;color:#ffcc00;font-weight:bold">Founder & Programmer - Aviation 101</p>
 <p>Halo! Gue <b>Azraferoz Sean</b>, yang bikin web Aviation 101 ini dari nol.</p>
-<p>Dibuat karena gue suka banget sama dunia penerbangan - dari cara pesawat terbang, bedanya Boeing & Airbus, sampai cara pilot ngomong sama ATC pake bahasa Romeo Alpha segala macem.</p>
 <div class="box" style="text-align:left;margin-top:16px">
 <b>✈️ Tentang Gue:</b><br><br>
 <b>Nama:</b> Azraferoz Sean<br>
@@ -296,46 +299,20 @@ body.terang .alpha-item b{color:#0077ff}
 </div>
 <div class="box" style="text-align:left;margin-top:12px">
 <b>💬 Pesan dari Gue:</b><br>
-<i>"Semoga web ini bikin lo makin suka sama dunia aviasi. Siapa tau dari baca-baca di sini, lo jadi pilot beneran atau ATC beneran suatu hari nanti. Keep dreaming, keep flying!"</i><br><br>
+<i>"Semoga web ini bikin lo makin suka sama dunia aviasi. Keep dreaming, keep flying!"</i><br><br>
 - Azraferoz Sean
 </div>
-<p style="margin-top:16px;font-size:13px;opacity:.7">Terima kasih udah mampir ke Aviation 101! 🛫</p>
 </div>
 </div>
 
-<footer>Aviation 101 (Demo version) • Belajar Dasar Penerbangan • By Azraferoz Sean</footer>
+<footer>Aviation 101 (Demo version) • By Azraferoz Sean</footer>
 <script>
-function gantiMode(){document.body.classList.toggle('terang')}
-function buka(id){
-  document.querySelectorAll('.card').forEach(c=>c.classList.remove('aktif'));
-  document.getElementById(id).classList.add('aktif');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function bukaMenu(){
-  document.getElementById('sidebar').classList.add('buka');
-  document.getElementById('overlay').classList.add('tampil');
-}
-function tutupMenu(){
-  document.getElementById('sidebar').classList.remove('buka');
-  document.getElementById('overlay').classList.remove('tampil');
-}
-function bukaDariMenu(id,btn){
-  buka(id);
-  document.querySelectorAll('.sidebar-menu button').forEach(b=>b.classList.remove('aktif'));
-  btn.classList.add('aktif');
-  tutupMenu();
-}
-function updateJam(){
-  var now=new Date();
-  var jam=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0')+' WIB';
-  var tanggal=now.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  document.getElementById('jamAtas').textContent=jam;
-  document.getElementById('tanggalAtas').textContent=tanggal;
-  document.getElementById('jamSidebar').textContent=jam;
-  document.getElementById('tanggalSidebar').textContent=tanggal;
-}
-setInterval(updateJam,1000);
-updateJam();
-</script>
-</body>
-</html>
+var PASSWORD = "aviation101";
+var bahasaDipilih = 'id';
+function pilihBahasa(bhs){
+  bahasaDipilih = bhs;
+  document.getElementById('layarBahasa').classList.add('sembunyi');
+  document.getElementById('layarPeringatan').classList.remove('sembunyi');
+  if(bhs === 'en'){
+    document.getElementById('judulWarning').textContent = 'WARNING';
+    document.getElementById('teksWarning').innerHTML = 'This website is still under d
