@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AVIASI 101</title>
+<title>Aviation 101 (Demo version)</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:system-ui,sans-serif;margin:0;background:#0b1220;color:white}
@@ -12,6 +12,7 @@ body.terang nav{background:#ddd}
 body.terang nav button{background:white;color:black}
 body.terang .box{background:#eee;color:#111;border-color:#ccc}
 header{background:linear-gradient(135deg,#0077ff,#00c6ff);padding:25px 20px 10px;text-align:center}
+.demo-badge{background:#ffcc00;color:black;font-size:11px;font-weight:bold;padding:4px 10px;border-radius:20px;letter-spacing:1px}
 .sky{height:80px;position:relative;overflow:hidden}
 .plane{font-size:45px;position:absolute;top:10px;left:-80px;animation:terbang 7s linear infinite}
 .cloud{position:absolute;font-size:25px;animation:awan 12s linear infinite}
@@ -41,8 +42,8 @@ footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 </style>
 </head>
 <body>
-<div class="topbar"><b>✈️ AVIASI 101</b><button class="btn-mode" onclick="gantiMode()">🌙 / ☀️ Mode</button></div>
-<header><h1>Kenapa Pesawat Bisa Terbang?</h1><p>Belajar dasar aviasi dari nol.</p><div class="sky"><div class="cloud">☁️</div><div class="plane">✈️</div></div></header>
+<div class="topbar"><b>✈️ Aviation 101</b><span class="demo-badge">DEMO VERSION</span><button class="btn-mode" onclick="gantiMode()">🌙 / ☀️ Mode</button></div>
+<header><h1>Aviation 101</h1><p>Belajar dasar aviasi dari nol.</p><span class="demo-badge">✦ DEMO VERSION ✦</span><div class="sky"><div class="cloud">☁️</div><div class="plane">✈️</div></div></header>
 <nav>
 <button onclick="buka('gaya',this)" class="aktif">4 Gaya</button>
 <button onclick="buka('jenis',this)">Jenis</button>
@@ -135,7 +136,7 @@ footer{text-align:center;padding:20px;opacity:.7;font-size:13px}
 <div class="kecelakaan"><b>✈️ US Airways 1549 - Miracle on the Hudson</b><br>2 mesin mati, mendarat di sungai, SEMUA SELAMAT.<div class="pelajaran"><b>✅ PELAJARANNYA:</b> Keputusan cepat menyelamatkan 155 nyawa.</div></div>
 </div>
 
-<footer>AVIASI 101 • Belajar Dasar Penerbangan</footer>
+<footer>Aviation 101 (Demo version) • Belajar Dasar Penerbangan</footer>
 <script>
 function gantiMode(){document.body.classList.toggle('terang')}
 function buka(id,btn){
