@@ -9,13 +9,9 @@ body{font-family:system-ui,sans-serif;margin:0;background:#0b1220;color:white}
 body.terang{background:#f2f2f2;color:#111}
 body.terang .card{background:white;color:#111}
 body.terang .box{background:#eee;color:#111;border-color:#ccc}
-/* LAYAR AWAL */
 .layar-penuh{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,#0b1220,#16223f);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;overflow-y:auto}
-.logo-besar{font-size:60px;margin-bottom:5px}
-.btn-bahasa{width:100%;max-width:320px;background:white;color:#111;border:none;padding:16px;border-radius:16px;margin:8px 0;font-size:17px;font-weight:bold;cursor:pointer}
 .btn-utama{width:100%;max-width:320px;background:#00c6ff;color:black;border:none;padding:15px;border-radius:14px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:12px}
 .btn-dev{width:100%;max-width:320px;background:#ffcc00;color:black;border:none;padding:13px;border-radius:14px;font-size:14px;font-weight:bold;cursor:pointer;margin-top:10px}
-.btn-kembali{background:none;border:1px solid #555;color:#ccc;padding:8px 16px;border-radius:20px;margin-top:16px;cursor:pointer}
 .input-pass{width:100%;max-width:320px;padding:14px;border-radius:12px;border:2px solid #00c6ff;background:#0b1220;color:white;font-size:16px;text-align:center;outline:none;margin-top:12px}
 .warning-box{background:#2a1a00;border:2px solid #ffcc00;border-radius:16px;padding:16px;max-width:340px;margin:12px 0}
 header{background:linear-gradient(135deg,#0077ff,#00c6ff);padding:25px 20px 10px;text-align:center}
@@ -82,32 +78,24 @@ body.terang .alpha-item b{color:#0077ff}
 </head>
 <body>
 
-<!-- LAYAR 1: BAHASA -->
-<div class="layar-penuh" id="layarBahasa">
-<div class="logo-besar">✈️</div>
+<!-- LAYAR PERTAMA: PERINGATAN -->
+<div class="layar-penuh" id="layarPeringatan">
+<div style="font-size:60px">✈️</div>
 <h1 style="margin:5px 0">Aviation 101</h1>
 <span class="demo-badge">DEMO VERSION</span>
-<p style="opacity:.8;margin:18px 0 8px">Pilih Bahasa / Choose Language</p>
-<button class="btn-bahasa" onclick="pilihBahasa('id')">🇮🇩 Bahasa Indonesia</button>
-<button class="btn-bahasa" onclick="pilihBahasa('en')">🇬🇧 English</button>
-<p style="font-size:12px;opacity:.6;margin-top:20px">By Azraferoz Sean • 2026</p>
-</div>
-
-<!-- LAYAR 2: PERINGATAN -->
-<div class="layar-penuh" id="layarPeringatan" style="display:none">
-<div style="font-size:50px">⚠️</div>
-<h2 id="judulWarning" style="margin:8px 0">PERINGATAN</h2>
+<div style="font-size:50px;margin-top:16px">⚠️</div>
+<h2 style="margin:8px 0">PERINGATAN</h2>
 <div class="warning-box">
-<p id="teksWarning" style="margin:0;line-height:1.6;font-size:14px">Website ini masih dalam tahap pengembangan.<br>Akses terbatas. Hanya Developer yang bisa masuk ke layar utama.<br><br>Silakan hubungi Developer untuk akses.</p>
+<p style="margin:0;line-height:1.6;font-size:14px">Website ini masih dalam tahap pengembangan.<br>Akses terbatas. Hanya Developer yang bisa masuk ke layar utama.<br><br>Silakan hubungi Developer untuk akses.</p>
 </div>
-<p id="teksDevInfo" style="font-size:13px;opacity:.8">Pencet tombol di bawah untuk masuk sebagai Developer.</p>
+<p style="font-size:13px;opacity:.8">Pencet tombol di bawah untuk masuk sebagai Developer.</p>
 <div id="areaPass" style="display:none;width:100%;max-width:320px">
 <input type="password" id="inputPass" class="input-pass" placeholder="Masukkan Password Developer">
 <p id="pesanSalah" style="color:#ff5555;font-size:13px;display:none;margin:8px 0">❌ Password salah! Coba lagi.</p>
-<button class="btn-utama" id="btnMasuk" onclick="cekPassword()">🔓 MASUK</button>
+<button class="btn-utama" onclick="cekPassword()">🔓 MASUK</button>
 </div>
 <button class="btn-dev" id="btnDev" onclick="tampilPass()">👨‍💻 DEVELOPER MODE</button>
-<button class="btn-kembali" onclick="kembaliBahasa()">← <span id="teksKembali">Ganti Bahasa</span></button>
+<p style="font-size:12px;opacity:.6;margin-top:20px">By Azraferoz Sean • 2026</p>
 </div>
 
 <div class="overlay" id="overlay" onclick="tutupMenu()"></div>
@@ -306,10 +294,39 @@ body.terang .alpha-item b{color:#0077ff}
 <footer>Aviation 101 (Demo version) • By Azraferoz Sean</footer>
 <script>
 var PASSWORD = "aviation101";
-function pilihBahasa(bhs){
-  document.getElementById('layarBahasa').style.display = 'none';
-  document.getElementById('layarPeringatan').style.display = 'flex';
-  if(bhs === 'en'){
-    document.getElementById('judulWarning').textContent = 'WARNING';
-    document.getElementById('teksWarning').innerHTML = 'This website is still under development.<br>Access is limited. Only Developer can enter the main screen.<br><br>Please contact Developer for access.';
-    document.getElementById('teksDe
+function tampilPass(){
+  document.getElementById('areaPass').style.display = 'block';
+  document.getElementById('btnDev').style.display = 'none';
+  document.getElementById('inputPass').focus();
+}
+function cekPassword(){
+  var isi = document.getElementById('inputPass').value;
+  if(isi === PASSWORD){
+    document.getElementById('layarPeringatan').style.display = 'none';
+    window.scrollTo(0,0);
+  } else {
+    document.getElementById('pesanSalah').style.display = 'block';
+    document.getElementById('inputPass').value = '';
+    document.getElementById('inputPass').focus();
+  }
+}
+document.getElementById('inputPass').addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){ cekPassword(); }
+});
+function gantiMode(){document.body.classList.toggle('terang')}
+function buka(id){
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('aktif'));
+  document.getElementById(id).classList.add('aktif');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bukaMenu(){
+  document.getElementById('sidebar').classList.add('buka');
+  document.getElementById('overlay').classList.add('tampil');
+}
+function tutupMenu(){
+  document.getElementById('sidebar').classList.remove('buka');
+  document.getElementById('overlay').classList.remove('tampil');
+}
+function bukaDariMenu(id,btn){
+  buka(id);
+  document.querySelectorAll('.
