@@ -90,8 +90,11 @@ body.terang .alpha-item b{color:#0077ff}
 <p style="font-size:13px;opacity:.8">Pencet tombol di bawah untuk masuk sebagai Developer.</p>
 
 <div id="areaPass" style="display:none;width:100%;max-width:320px">
-<input type="password" id="inputPass" class="input-pass" placeholder="Masukkan Password Developer">
-<p id="pesanSalah" style="color:#ff5555;font-size:13px;display:none;margin:8px 0">❌ Password salah! Coba lagi.</p>
+<div style="position:relative;max-width:320px;margin:0 auto">
+<input type="password" id="inputPass" class="input-pass" placeholder="Masukkan Password Developer" style="padding-right:50px">
+<button onclick="lihatPass()" style="position:absolute;right:8px;top:20px;background:none;border:none;font-size:20px;cursor:pointer">👁️</button>
+</div>
+<p id="pesanSalah" style="color:#ff5555;font-size:13px;display:none;margin:8px 0"></p>
 <button class="btn-utama" onclick="cekPassword()">🔓 MASUK</button>
 </div>
 
@@ -295,14 +298,21 @@ body.terang .alpha-item b{color:#0077ff}
 <footer>Aviation 101 (Demo version) • By Azraferoz Sean</footer>
 <script>
 var PASSWORD = "aviation101";
+function lihatPass(){
+  var x = document.getElementById('inputPass');
+  if(x.type === 'password'){ x.type = 'text'; } else { x.type = 'password'; }
+}
 function cekPassword(){
   var isi = document.getElementById('inputPass').value;
   var bersih = isi.trim().toLowerCase();
   if(bersih === PASSWORD){
-    document.getElementById('layarPeringatan').style.display = 'none';
+    var layar = document.getElementById('layarPeringatan');
+    layar.remove();
     window.scrollTo(0,0);
   } else {
-    document.getElementById('pesanSalah').style.display = 'block';
+    var p = document.getElementById('pesanSalah');
+    p.style.display = 'block';
+    p.textContent = '❌ Password salah! Kamu ketik ' + isi.length + ' huruf, harusnya 11 huruf. Coba lagi: aviation101';
     document.getElementById('inputPass').value = '';
     document.getElementById('inputPass').focus();
   }
@@ -321,19 +331,4 @@ function buka(id){
 }
 function bukaMenu(){
   document.getElementById('sidebar').classList.add('buka');
-  document.getElementById('overlay').classList.add('tampil');
-}
-function tutupMenu(){
-  document.getElementById('sidebar').classList.remove('buka');
-  document.getElementById('overlay').classList.remove('tampil');
-}
-function bukaDariMenu(id,btn){
-  buka(id);
-  document.querySelectorAll('.sidebar-menu button').forEach(b=>b.classList.remove('aktif'));
-  btn.classList.add('aktif');
-  tutupMenu();
-}
-function updateJam(){
-  try{
-    var now=new Date();
-    var jam=String(now.getHours()).padStart(2,'0')+':'+String(now.g
+  document.
