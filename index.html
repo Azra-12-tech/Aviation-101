@@ -72,6 +72,7 @@ body.terang .alpha-item{background:#eee;color:#111}
 body.terang .alpha-item b{color:#0077ff}
 .profil{text-align:center;padding:20px 10px}
 .profil-foto{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#0077ff,#00c6ff);display:flex;align-items:center;justify-content:center;font-size:45px;font-weight:bold;margin:0 auto 14px;border:4px solid #ffcc00}
+.lock-info{background:#ff2222;color:white;font-size:12px;font-weight:bold;padding:6px 12px;border-radius:20px;margin-top:10px;display:none}
 </style>
 </head>
 <body>
@@ -81,12 +82,13 @@ body.terang .alpha-item b{color:#0077ff}
 <h1 style="margin:5px 0">Aviation 101</h1>
 <span class="demo-badge">DEMO VERSION</span>
 <div style="font-size:50px;margin-top:16px">⚠️</div>
-<h2 style="margin:8px 0">PENGUMUMAN</h2>
+<h2 style="margin:8px 0" id="judulPengumuman">PENGUMUMAN</h2>
 <div class="warning-box">
-<p style="margin:0;line-height:1.7;font-size:14px">Website ini masih dalam tahap pengembangan.<br><br>Jika ada <b>bug, error, atau masalah</b> saat menggunakan website ini, silakan hubungi Developer.<br><br>Terima kasih atas pengertiannya! 🙏</p>
+<p style="margin:0;line-height:1.7;font-size:14px" id="teksPengumuman">Website ini masih dalam tahap pengembangan.<br><br>Jika ada <b>bug, error, atau masalah</b> saat menggunakan website ini, silakan hubungi Developer.<br><br>Terima kasih atas pengertiannya! 🙏</p>
 </div>
-<button class="btn-ok" onclick="document.getElementById('layarPeringatan').remove(); window.scrollTo(0,0);">OK, SAYA MENGERTI 👍</button>
-<p style="font-size:12px;opacity:.6;margin-top:20px">By Azraferoz Sean • 2026</p>
+<div class="lock-info" id="lockInfo">🔒 SESI DIKUNCI - KAMU PINDAH TAB!</div>
+<button class="btn-ok" onclick="tutupPengumuman()">OK, SAYA MENGERTI 👍</button>
+<p style="font-size:12px;opacity:.6;margin-top:20px">By Azraferoz Sean • 2026 • 🔒 Auto-Lock Aktif</p>
 </div>
 
 <div class="overlay" id="overlay" onclick="tutupMenu()"></div>
@@ -283,6 +285,38 @@ body.terang .alpha-item b{color:#0077ff}
 
 <footer>Aviation 101 (Demo version) • By Azraferoz Sean</footer>
 <script>
+var sudahMasuk = false;
+function tutupPengumuman(){
+  document.getElementById('layarPeringatan').style.display = 'none';
+  document.getElementById('lockInfo').style.display = 'none';
+  sudahMasuk = true;
+  window.scrollTo(0,0);
+}
+function kunciLagi(){
+  if(!sudahMasuk) return;
+  var layar = document.getElementById('layarPeringatan');
+  layar.style.display = 'flex';
+  document.getElementById('judulPengumuman').textContent = '🔒 SESI DIKUNCI';
+  document.getElementById('teksPengumuman').innerHTML = 'Kamu sempat keluar dari tab / aplikasi ini.<br><br>Demi keamanan, sesi kamu dikunci.<br><br>Pencet <b>OK</b> untuk masuk lagi.';
+  document.getElementById('lockInfo').style.display = 'inline-block';
+  window.scrollTo(0,0);
+}
+// DETEKSI PINDAH TAB
+document.addEventListener('visibilitychange', function(){
+  if(document.hidden){
+    // User baru aja keluar tab
+  } else {
+    // User balik lagi ke tab
+    kunciLagi();
+  }
+});
+// DETEKSI PINDAH APLIKASI / HP KE-LOCK (Buat HP)
+window.addEventListener('blur', function(){
+  // Jangan langsung kunci pas blur, tunggu dia balik
+});
+window.addEventListener('focus', function(){
+  kunciLagi();
+});
 function gantiMode(){document.body.classList.toggle('terang')}
 function buka(id){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('aktif'));
@@ -307,19 +341,4 @@ function updateJam(){
   try{
     var now=new Date();
     var jam=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0')+' WIB';
-    var tanggal=now.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-    var j1=document.getElementById('jamAtas');
-    var t1=document.getElementById('tanggalAtas');
-    var j2=document.getElementById('jamSidebar');
-    var t2=document.getElementById('tanggalSidebar');
-    if(j1) j1.textContent=jam;
-    if(t1) t1.textContent=tanggal;
-    if(j2) j2.textContent=jam;
-    if(t2) t2.textContent=tanggal;
-  }catch(e){}
-}
-setInterval(updateJam,1000);
-updateJam();
-</script>
-</body>
-  </html>
+    var tanggal=now.toLocaleDateString('id-ID',{weekd
