@@ -78,7 +78,6 @@ body.terang .alpha-item b{color:#0077ff}
 </head>
 <body>
 
-<!-- LAYAR PERTAMA: PERINGATAN -->
 <div class="layar-penuh" id="layarPeringatan">
 <div style="font-size:60px">✈️</div>
 <h1 style="margin:5px 0">Aviation 101</h1>
@@ -89,12 +88,15 @@ body.terang .alpha-item b{color:#0077ff}
 <p style="margin:0;line-height:1.6;font-size:14px">Website ini masih dalam tahap pengembangan.<br>Akses terbatas. Hanya Developer yang bisa masuk ke layar utama.<br><br>Silakan hubungi Developer untuk akses.</p>
 </div>
 <p style="font-size:13px;opacity:.8">Pencet tombol di bawah untuk masuk sebagai Developer.</p>
+
 <div id="areaPass" style="display:none;width:100%;max-width:320px">
 <input type="password" id="inputPass" class="input-pass" placeholder="Masukkan Password Developer">
 <p id="pesanSalah" style="color:#ff5555;font-size:13px;display:none;margin:8px 0">❌ Password salah! Coba lagi.</p>
 <button class="btn-utama" onclick="cekPassword()">🔓 MASUK</button>
 </div>
-<button class="btn-dev" id="btnDev" onclick="tampilPass()">👨‍💻 DEVELOPER MODE</button>
+
+<button class="btn-dev" id="btnDev" onclick="document.getElementById('areaPass').style.display='block'; document.getElementById('btnDev').style.display='none'; document.getElementById('inputPass').focus();">👨‍💻 DEVELOPER MODE</button>
+
 <p style="font-size:12px;opacity:.6;margin-top:20px">By Azraferoz Sean • 2026</p>
 </div>
 
@@ -158,7 +160,6 @@ body.terang .alpha-item b{color:#0077ff}
 <p><b>Contoh:</b> A320, A350, A380<br><b>Bentuknya:</b> Kayak joystick game / PS! Di samping kiri & kanan.<br><b>Rasanya:</b> Enteng, 1 tangan aja. Bisa naruh kopi! ☕</p>
 </div>
 <div class="box" style="margin-top:14px"><b>🤔 LO TIM MANA?</b><br>Tim Setir (Boeing) atau Tim Joystick (Airbus)?</div>
-<p style="margin-top:14px"><b>Jenis Mesin:</b><br><b>Jet:</b> Jarak jauh. <b>Turboprop:</b> Jarak dekat, ATR 72. <b>Propeller:</b> Pesawat latih, Cessna 172.</p>
 </div>
 
 <div class="card" id="indo">
@@ -218,7 +219,7 @@ body.terang .alpha-item b{color:#0077ff}
 <div class="card" id="atc">
 <h2>7. 🗼 ATC - Air Traffic Control</h2>
 <img src="https://images.unsplash.com/photo-1541185934-01b600069069?w=800&q=80" alt="ATC Tower">
-<p><b>ATC itu siapa?</b><br>Petugas di menara yang mengatur semua pesawat biar gak tabrakan. Mereka yang kasih izin takeoff, landing, belok, naik, turun.</p>
+<p><b>ATC itu siapa?</b><br>Petugas di menara yang mengatur semua pesawat biar gak tabrakan.</p>
 <div class="atc-box">
 <h3>🎧 3 Jenis ATC</h3>
 <p><b>1. Tower (TWR)</b> - Ngatur takeoff, landing, & taxi.<br><br><b>2. Approach / Departure (APP/DEP)</b> - Ngatur pesawat baru takeoff / mau mendarat.<br><br><b>3. Area Control (ACC)</b> - Ngatur pesawat terbang tinggi antar kota / negara.</p>
@@ -294,14 +295,10 @@ body.terang .alpha-item b{color:#0077ff}
 <footer>Aviation 101 (Demo version) • By Azraferoz Sean</footer>
 <script>
 var PASSWORD = "aviation101";
-function tampilPass(){
-  document.getElementById('areaPass').style.display = 'block';
-  document.getElementById('btnDev').style.display = 'none';
-  document.getElementById('inputPass').focus();
-}
 function cekPassword(){
   var isi = document.getElementById('inputPass').value;
-  if(isi === PASSWORD){
+  var bersih = isi.trim().toLowerCase();
+  if(bersih === PASSWORD){
     document.getElementById('layarPeringatan').style.display = 'none';
     window.scrollTo(0,0);
   } else {
@@ -310,9 +307,12 @@ function cekPassword(){
     document.getElementById('inputPass').focus();
   }
 }
-document.getElementById('inputPass').addEventListener('keydown', function(e){
-  if(e.key === 'Enter'){ cekPassword(); }
-});
+var ip = document.getElementById('inputPass');
+if(ip){
+  ip.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ cekPassword(); }
+  });
+}
 function gantiMode(){document.body.classList.toggle('terang')}
 function buka(id){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('aktif'));
@@ -329,4 +329,11 @@ function tutupMenu(){
 }
 function bukaDariMenu(id,btn){
   buka(id);
-  document.querySelectorAll('.
+  document.querySelectorAll('.sidebar-menu button').forEach(b=>b.classList.remove('aktif'));
+  btn.classList.add('aktif');
+  tutupMenu();
+}
+function updateJam(){
+  try{
+    var now=new Date();
+    var jam=String(now.getHours()).padStart(2,'0')+':'+String(now.g
