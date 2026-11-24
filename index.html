@@ -296,12 +296,15 @@ body.terang .alpha-item b{color:#0077ff}
 </div>
 
 <footer>Aviation 101 (Demo version) • By Azraferoz Sean</footer>
+
 <script>
 var PASSWORD = "aviation101";
+
 function lihatPass(){
   var x = document.getElementById('inputPass');
   if(x.type === 'password'){ x.type = 'text'; } else { x.type = 'password'; }
 }
+
 function cekPassword(){
   var isi = document.getElementById('inputPass').value;
   var bersih = isi.trim().toLowerCase();
@@ -317,18 +320,23 @@ function cekPassword(){
     document.getElementById('inputPass').focus();
   }
 }
+
 var ip = document.getElementById('inputPass');
 if(ip){
   ip.addEventListener('keydown', function(e){
     if(e.key === 'Enter'){ cekPassword(); }
   });
 }
-function gantiMode(){document.body.classList.toggle('terang')}
-function buka(id){
-  document.querySelectorAll('.card').forEach(c=>c.classList.remove('aktif'));
-  document.getElementById(id).classList.add('aktif');
-  window.scrollTo({top:0,behavior:'smooth'});
+
+function gantiMode(){
+  document.body.classList.toggle('terang');
 }
+
+function buka(id){
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('aktif'));
+  document.getElementById(id).classList.add('aktif');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
 function bukaMenu(){
-  document.getElementById('sidebar').classList.add('buka');
-  document.
+  document.getElementById('sidebar').classList.add('bu
